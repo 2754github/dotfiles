@@ -21,6 +21,21 @@ alias cat="bat"
 
 alias hg='(){rg $2 $1 -l}'
 
+# brew aliases
+alias brnum="echo $(brew list | wc -l)"
+alias brdeps='(){brew deps --tree $1}'
+alias bruses='(){brew uses --installed $1}'
+bralldeps () {
+  for package in $(brew list); do
+    echo $package: $(brew uses --installed $package | wc -l)
+  done
+}
+bralldeps0 () {
+  for package in $(brew list); do
+    echo -n $package: $(brew uses --installed $package | wc -l) | grep " 0"
+  done
+}
+
 # git aliases
 alias gl="git log --oneline"
 alias gs="git status -s"
