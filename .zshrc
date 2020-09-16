@@ -10,6 +10,11 @@ alias vss="vim ~/.config/starship.toml"
 alias sz="source ~/.zshrc"
 
 alias clc="clear"
+fcd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
 alias rmd="rm -rf"
 
 # modern zsh aliases
@@ -41,8 +46,12 @@ alias gl="git log --oneline"
 alias gs="git status -s"
 alias gd="git diff"
 
-alias gb="git branch"
-alias gc="git checkout"
+gch () {
+  local branches branch
+  branches=$(git branch) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
 
 alias ga="git add"
 alias gcm='(){git commit -m $1}'
