@@ -9,12 +9,12 @@ $ git clone https://github.com/2754github/dotfiles.git
 
 ### 2. インストール
 ```zsh:ターミナル
-$ sh settings/dotfiles/setup.sh
+$ sh dotfiles/settings/setup.sh
 ```
 
 ### x. `settings`から特定の設定のみの実行も可能
 ```zsh:ターミナル
-$ sh settings/dotfiles/xxxx.sh
+$ sh dotfiles/settings/xxxx.sh
 ```
 
 # ターミナル（zsh）の設定
