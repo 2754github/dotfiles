@@ -1,0 +1,6 @@
+.memo/
+node_modules/
+vendor/
+.dccache
+.DS_Store
+.env

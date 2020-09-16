@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -e
+
+markuplint -p "app/**/*.[jt]sx" "lib/**/*.[jt]sx"
+next lint

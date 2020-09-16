@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -eu
+
+unsafe_links=$(grep -Enr 'https://github.com.*(develop|main|master)' . --exclude=./golangci-lint --exclude-dir={.git,.memo,.next,git-hooks,node_modules,target,vendor} || true)
+
+if [[ "$unsafe_links" != "" ]]; then
+  echo "❌ unsafe links remain"
+  echo "$unsafe_links" | awk -F ':' '{print $1 ":" $2}'
+  exit 1
+fi
+
+echo "✅ no unsafe links"

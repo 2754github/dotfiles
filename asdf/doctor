@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -eu
+
+plugins=(
+  golang
+  java
+  nodejs
+  rust
+)
+
+for plugin in "${plugins[@]}"; do
+  if ! asdf list "$plugin" > /dev/null 2>&1; then
+    echo "❌ $plugin not found"
+    exit 1
+  fi
+done
+
+echo "✅ $0"

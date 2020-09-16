@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eu
+
+if ! which brew > /dev/null 2>&1; then
+  echo "❌ brew not found"
+  exit 1
+fi
+
+# TODO: check formulae
+
+if git -v | grep -q 'Apple'; then
+  echo "❌ git is apple git"
+  exit 1
+fi
+
+echo "✅ $0"

@@ -1,0 +1,27 @@
+# https://starship.rs/config/
+
+# https://tech.buty4649.net/entry/2021/07/29/201613
+command_timeout = 1500
+
+[[battery.display]]
+threshold = 25
+style = 'red'
+
+[directory]
+truncation_length = 100
+truncate_to_repo = false
+
+[git_status]
+ahead = '↑ $count/'
+behind = '↓ $count/'
+diverged = '×/'
+untracked = 'U/'
+stashed = 'S/'
+modified = 'M/'
+staged = 'A/'
+renamed = 'R/'
+deleted = 'D/'
+style = 'bold purple'
+
+[time]
+disabled = false

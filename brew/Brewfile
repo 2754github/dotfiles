@@ -1,0 +1,37 @@
+# https://github.com/Homebrew/homebrew-bundle#usage
+
+tap "homebrew/cask"
+cask_args appdir: "~/Applications"
+
+# https://starship.rs/guide/#prerequisites
+# https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
+tap "homebrew/cask-fonts"
+cask "font-hack-nerd-font", args: { appdir: "~/Library/Fonts" }
+
+# https://github.com/kyoshidajp/ghkw
+tap "kyoshidajp/ghkw"
+brew "ghkw"
+
+brew "asdf"
+brew "bat"
+brew "exa"
+brew "fzf"
+brew "git"
+brew "git-delta"
+brew "jq"
+brew "ripgrep"
+brew "starship"
+
+# cask "arc"
+cask "cmd-eikana"
+cask "docker"
+cask "fig"
+cask "google-chrome"
+# cask "google-cloud-sdk"
+# cask "google-drive"
+cask "raycast"
+cask "slack"
+cask "tableplus"
+cask "visual-studio-code"
+
+mas "LINE", id: 539883307

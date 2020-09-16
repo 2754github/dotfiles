@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -eu
+
+files=(
+  .config/git/config
+  .config/git/ignore
+  .config/starship.toml
+  .ssh/config
+  .zshrc
+)
+
+for file in "${files[@]}"; do
+  if [[ ! -L "$HOME/$file" ]]; then
+    echo "❌ $file is not symlinked"
+    exit 1
+  fi
+done
+
+echo "✅ $0"

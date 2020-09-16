@@ -1,0 +1,9 @@
+{
+  "editor.codeActionsOnSave": ["source.addMissingImports", "source.organizeImports", "source.fixAll.eslint"], // https://github.com/microsoft/vscode/pull/92681
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.quickSuggestions": { "strings": true },
+  "eslint.workingDirectories": [{ "mode": "auto" }], // https://zenn.dev/taichifukumoto/scraps/45be5ffdfa8457
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

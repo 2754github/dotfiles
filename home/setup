@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -eu
+
+if [[ ! -d "$HOME/.config" ]]; then
+  mkdir "$HOME/.config"
+fi
+
+if [[ ! -d "$HOME/.config/git" ]]; then
+  mkdir "$HOME/.config/git"
+fi
+
+if [[ ! -f "$HOME/.config/git/config" ]]; then
+  ln -s "$HOME/dotfiles/home/.config/git/config" "$HOME/.config/git/config"
+fi
+
+if [[ ! -f "$HOME/.config/git/ignore" ]]; then
+  ln -s "$HOME/dotfiles/home/.config/git/ignore" "$HOME/.config/git/ignore"
+fi
+
+if [[ ! -f "$HOME/.config/starship.toml" ]]; then
+  ln -s "$HOME/dotfiles/home/.config/starship.toml" "$HOME/.config/starship.toml"
+fi
+
+if [[ ! -d "$HOME/.ssh" ]]; then
+  mkdir "$HOME/.ssh"
+fi
+
+if [[ ! -f "$HOME/.ssh/github" ]]; then
+  ssh-keygen -t ecdsa -N "" -f "$HOME/.ssh/github"
+fi
+
+if [[ ! -f "$HOME/.ssh/config" ]]; then
+  ln -s "$HOME/dotfiles/home/.ssh/config" "$HOME/.ssh/config"
+fi
+
+if [[ ! -f "$HOME/.zshrc" ]]; then
+  ln -s "$HOME/dotfiles/home/.zshrc" "$HOME/.zshrc"
+fi
+
+source "$HOME/.zshrc"
