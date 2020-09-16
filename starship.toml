@@ -1,0 +1,46 @@
+# add_newline = false
+
+[character]
+use_symbol_for_status = true
+
+[directory]
+truncation_length = 100
+truncate_to_repo = false
+
+[git_branch]
+# symbol = " "
+
+[git_commit]
+# truncation_length = 4
+
+[git_state]
+# progress_divider = " of "
+# cherry_pick = "🍒 PICKING"
+
+[git_status]
+# conflicted = "🏳"
+# ahead = "🏎💨"
+# behind = "😰"
+# diverged = "😵"
+# untracked = "🤷‍"
+# stashed = "📦"
+# modified = "📝"
+# staged.value = "++"
+# staged.style = "green"
+# staged_count.enabled = true
+# staged_count.style = "green"
+# renamed = "👅"
+# deleted = "🗑"
+
+[memory_usage]
+disabled = false
+show_percentage = true
+show_swap = true
+threshold = -1
+# style = "bold dimmed green"
+
+[time]
+disabled = false
+
+
+
