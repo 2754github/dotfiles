@@ -15,7 +15,7 @@ alias clc="clear"
 fcd() {
   local dir
   dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
+  cd $dir
 }
 alias exsh="exec $SHELL -l"
 alias rmd="rm -rf"
@@ -65,16 +65,16 @@ alias gp="git push origin HEAD"
 gch () {
   local branches branch
   branches=$(git branch) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+  branch=$(echo $branches | fzf +m) &&
+  git checkout $(echo $branch | awk '{print $1}' | sed "s/.* //")
 }
 
 gcom () {
   git add -i &&
   git log --oneline -n 4 &&
-  echo "Enter commit massage:" &&
+  echo "コミットメッセージを入力してください:" &&
   read message &&
-  git commit -m "$message"
+  git commit -m $message
 }
 
 
