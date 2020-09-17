@@ -79,6 +79,29 @@ gcom () {
 
 
 
+# vscode aliases
+vscode () {
+  echo "Settings" &&
+  cat $HOME/Library/Application\ Support/Code/User/settings.json &&
+  echo "Extensions" &&
+  ll $HOME/.vscode/extensions
+}
+vscode_rmex () {
+  local extensions extension
+  extensions=$(ls $HOME/.vscode/extensions) &&
+  extension=$(echo $extensions | fzf +m) &&
+  echo "$extension を削除しますか？[Y/n]" &&
+  read res &&
+  if [ $res = "Y" ]; then
+    rm -r $HOME/.vscode/extensions/$extension &&
+    echo "$extension を削除しました。"
+  else
+    echo "$extension を削除しませんでした。"
+  fi
+}
+
+
+
 # myfunc
 alias secret="sh ~/secret/secret.sh"
 
