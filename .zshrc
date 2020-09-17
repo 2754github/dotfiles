@@ -55,7 +55,7 @@ bralldeps0 () {
 # git aliases
 alias gitls="alias | grep git"
 alias github="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)"
-alias gl="git log --oneline"
+alias gl="git log --oneline -n 5"
 alias gs="git status -s"
 alias gd="git diff"
 alias ga="git add -i"
@@ -71,10 +71,11 @@ gch () {
 
 gcom () {
   git add -i &&
-  git log --oneline -n 4 &&
+  git log --oneline -n 5 &&
   echo "コミットメッセージを入力してください:" &&
   read message &&
-  git commit -m $message
+  git commit -m $message &&
+  git log --oneline -n 3
 }
 
 
@@ -85,7 +86,9 @@ vscode () {
   cat $HOME/Library/Application\ Support/Code/User/settings.json &&
   echo "Extensions" &&
   ll $HOME/.vscode/extensions
+  cat $HOME/.vscode/extensions/.memo
 }
+alias vscode_mmex="vim $HOME/.vscode/extensions/.memo"
 vscode_rmex () {
   local extensions extension
   extensions=$(ls $HOME/.vscode/extensions) &&
@@ -103,6 +106,7 @@ vscode_rmex () {
 
 
 # myfunc
+alias memo="open /System/Applications/Notes.app"
 alias secret="sh ~/secret/secret.sh"
 
 
