@@ -3,6 +3,8 @@ eval "$(starship init zsh)"
 # 入力補完？
 # autoload -U compinit && compinit -u
 
+
+
 # zsh aliases
 alias vz="vim ~/.zshrc"
 alias cz="bat ~/.zshrc"
@@ -15,18 +17,25 @@ fcd() {
   dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
   cd "$dir"
 }
+alias exsh="exec $SHELL -l"
 alias rmd="rm -rf"
+alias rmdsstore="find . -name '.DS_Store' -type f -ls -delete"
+
+
 
 # modern zsh aliases
 alias ls="exa"
 alias ll="exa --long --header --git --time-style=long-iso -agl"
-alias tr='(){exa -alhF --git-ignore --group-directories-first --time-style=long-iso -T -L=$1 --ignore-glob=".git|node_modules"}'
+alias tree='(){exa -alhF --git-ignore --group-directories-first --time-style=long-iso -T -L=$1 --ignore-glob=".git|node_modules"}'
 
 alias cat="bat"
 
 alias hg='(){rg $2 $1 -l}'
 
+
+
 # brew aliases
+alias brup="brew update && brew upgrade"
 alias brnum="echo $(brew list | wc -l)"
 alias brdeps='(){brew deps --tree $1}'
 alias bruses='(){brew uses --installed $1}'
@@ -41,10 +50,17 @@ bralldeps0 () {
   done
 }
 
+
+
 # git aliases
+alias gitls="alias | grep git"
+alias github="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)"
 alias gl="git log --oneline"
 alias gs="git status -s"
 alias gd="git diff"
+alias ga="git add -i"
+alias gc="git commit -m "
+alias gp="git push origin HEAD"
 
 gch () {
   local branches branch
@@ -53,12 +69,20 @@ gch () {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
-alias ga="git add"
-alias gcm='(){git commit -m $1}'
-alias gp="git push origin HEAD"
+gcom () {
+  git add -i &&
+  git log --oneline -n 4 &&
+  echo "Enter commit massage:" &&
+  read message &&
+  git commit -m "$message"
+}
+
+
 
 # myfunc
 alias secret="sh ~/secret/secret.sh"
+
+
 
 # [【zsh】curlでURLクエリ付きでGETしようとすると「no matches found」になるとき](https://qiita.com/kure/items/1b592cac4ecc360ba2de)
 # [【shell】zshでno matches found。](https://shirusu-ni-tarazu.hatenablog.jp/entry/2013/01/18/034233)
