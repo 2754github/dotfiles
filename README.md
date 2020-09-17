@@ -35,7 +35,7 @@ $ sh dotfiles/settings/link.sh
 - ウインドウ: 列160 x 行40
 
 # 参考
-- [Starship](https://starship.rs/ja-JP/)
+- [Starship（zshフレームワーク）](https://starship.rs/ja-JP/)
 - [exa（lsの代替）](https://github.com/ogham/exa)
 - [bat（catの代替）](https://github.com/sharkdp/bat)
 - [ripgrep（grepの代替）](https://github.com/BurntSushi/ripgrep)
