@@ -82,13 +82,11 @@ gcom () {
 
 # vscode aliases
 vscode () {
-  echo "Settings" &&
+  echo "Settings => $HOME/Library/Application\ Support/Code/User/settings.json" &&
   cat $HOME/Library/Application\ Support/Code/User/settings.json &&
-  echo "Extensions" &&
+  echo "Extensions => $HOME/.vscode/extensions" &&
   ll $HOME/.vscode/extensions
-  cat $HOME/.vscode/extensions/.memo
 }
-alias vscode_mmex="vim $HOME/.vscode/extensions/.memo"
 vscode_rmex () {
   local extensions extension
   extensions=$(ls $HOME/.vscode/extensions) &&
