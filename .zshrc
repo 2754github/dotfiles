@@ -52,6 +52,22 @@ bralldeps0 () {
 
 
 
+# docker-compose aliases
+alias docls="alias | grep docker"
+alias dps="docker system df"
+alias dls='(){docker $1 ls}'
+alias drm="docker system prune"
+
+
+
+# docker-compose aliases
+alias dcu="docker-compose up"
+alias dcr="docker-compose run"
+alias -g cre:show="rails credentials:show"
+alias -g cre:edit="bash -c 'EDITOR=vi bin/rails credentials:edit'"
+
+
+
 # git aliases
 alias gitls="alias | grep git"
 alias github="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)"
