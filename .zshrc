@@ -1,3 +1,5 @@
+# awk、関数コマンド以外では「'」を使用しない
+
 eval "$(starship init zsh)"
 
 # 入力補完？
@@ -14,7 +16,7 @@ alias sz="source ~/.zshrc"
 alias clc="clear"
 fcd() {
   local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
+  dir=$(find ${1:-.} -path "*/\.*" -prune -o -type d -print 2> /dev/null | fzf +m) &&
   cd $dir
 }
 alias exsh="exec $SHELL -l"
