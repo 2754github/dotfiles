@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -e
+
+# Homebrewをインストール
+if [ ! -f /usr/local/bin/brew ]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  sudo chown -R $(whoami):admin /usr/local/*
+fi
+
+# Brewfileにある物をインストール
+brew bundle -v --file $HOME/dotfiles/Brewfile
+
+# フォントをインストール
+if [ ! -d $HOME/Library/Fonts ]; then
+  brew tap sanemat/font
+  brew install ricty --with-powerline
+  cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
+  fc-cache -vf
+fi
+
+# シンボリックリンクを貼る
+if [ ! -f $HOME/.zshrc ]; then
+  ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
+fi
+
+if [ ! -f $HOME/.config/starship.toml ]; then
+  ln -s $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
+fi

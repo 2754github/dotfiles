@@ -30,7 +30,7 @@ alias tree='(){exa -alhF --git-ignore --group-directories-first --time-style=lon
 
 alias cat="bat"
 
-alias hg='(){rg $2 $1 -l}'
+alias hg='(){rg $pwd $1 -l}'
 
 
 

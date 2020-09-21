@@ -1,37 +1,29 @@
 # 概要
 
-環境構築の共有を容易にするためのリポジトリ。
+環境構築を容易にするためのリポジトリ。
 
 # 前提条件
 
-- zsh であること
-- Homebrew がインストール済であること
+zsh であること
 
 # 導入
 
 ### 1. クローン
 
 ```zsh:ターミナル
-$ git clone https://github.com/2754github/dotfiles.git
+$ cd $HOME && git clone https://github.com/2754github/dotfiles.git
 ```
 
 ### 2. インストール
 
 ```zsh:ターミナル
-$ sh dotfiles/settings/setup.sh
+$ chmod u+x $HOME/dotfiles/install && $HOME/dotfiles/install
 ```
 
 ### 3. 忘れずに
 
 ```zsh:ターミナル
 $ exec $SHELL -l
-```
-
-### x. `settings`から特定の設定のみの実行も可能
-
-```zsh:ターミナル
-# 例えばシンボリックリンクを貼り直すだけならこう
-$ sh dotfiles/settings/link.sh
 ```
 
 # ターミナル（zsh）の設定
@@ -49,8 +41,10 @@ $ sh dotfiles/settings/link.sh
 - [exa（ls の代替）](https://github.com/ogham/exa)
 - [bat（cat の代替）](https://github.com/sharkdp/bat)
 - [ripgrep（grep の代替）](https://github.com/BurntSushi/ripgrep)
+- [Brewfile を使う](https://qiita.com/d0ne1s/items/90974ad472c2d891e784)
 
 # next scope
 
+- ターミナルの設定等のスクリプト化
 - `$HOME/Library/Application\ Support/Code/User/settings.json`の共有
 - `$HOME/.vscode/extensions`の共有
