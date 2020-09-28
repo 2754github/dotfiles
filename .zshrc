@@ -54,24 +54,20 @@ bralldeps0 () {
 
 
 
-# docker-compose aliases
-alias docls="alias | grep docker"
+# docker aliases
 alias dps="docker system df"
 alias dls='(){docker $1 ls}'
-alias drm="docker system prune"
-
-
+alias drm="docker system prune --volumes"
 
 # docker-compose aliases
 alias dcu="docker-compose up"
-alias dcr="docker-compose run"
+alias dcr="docker-compose run --rm"
 alias -g cre:show="rails credentials:show"
 alias -g cre:edit="bash -c 'EDITOR=vi bin/rails credentials:edit'"
 
 
 
 # git aliases
-alias gitls="alias | grep git"
 alias github="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)"
 alias gl="git log --oneline -n 5"
 alias gs="git status -s"
