@@ -57,7 +57,7 @@ bralldeps0 () {
 # docker aliases
 alias dps="docker system df"
 alias dls='(){docker $1 ls}'
-alias drm="docker system prune --volumes"
+alias drm="docker system prune"
 
 # docker-compose aliases
 alias dcu="docker-compose up"
