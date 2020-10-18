@@ -84,6 +84,12 @@ gch () {
   file=$(echo $files | fzf +m) &&
   git checkout $(echo $file | awk '{print $2}')
 }
+gsub () {
+  local files file
+  files=$(git status -s) &&
+  file=$(echo $files | fzf +m) &&
+  git reset HEAD $(echo $file | awk '{print $2}')
+}
 gsw () {
   local branches branch
   branches=$(git branch) &&
