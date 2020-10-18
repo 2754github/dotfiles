@@ -71,7 +71,6 @@ alias -g cre:edit="bash -c 'EDITOR=vi bin/rails credentials:edit'"
 alias github="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)"
 alias gl="git log --oneline -n 5"
 alias gs="git status -s"
-alias gc="git checkout"
 alias gp="git push origin HEAD"
 gd () {
   local files file
@@ -80,6 +79,12 @@ gd () {
   git diff $(echo $file | awk '{print $2}')
 }
 gch () {
+  local files file
+  files=$(git status -s) &&
+  file=$(echo $files | fzf +m) &&
+  git checkout $(echo $file | awk '{print $2}')
+}
+gsw () {
   local branches branch
   branches=$(git branch) &&
   branch=$(echo $branches | fzf +m) &&
