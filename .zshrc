@@ -146,3 +146,4 @@ setopt nonomatch
 # PATHを通す
 eval "$(starship init zsh)"
 eval "$(anyenv init -)"
+eval "$(direnv hook zsh)"

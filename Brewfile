@@ -8,6 +8,8 @@ brew "ripgrep"
 brew "starship"
 
 # 開発に必要なツールたち
+brew "anyenv"
+brew "direnv"
 brew "docker"
 cask "docker"
 cask "google-chrome"
