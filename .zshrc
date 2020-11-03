@@ -38,7 +38,7 @@ alias hg='(){rg $pwd $1 -l}'
 
 # brew aliases
 alias brup="brew update && brew upgrade"
-alias brnum="echo $(brew list | wc -l)"
+alias brnum="echo $(brew list --formula | wc -l)"
 alias brdeps='(){brew deps --tree $1}'
 alias bruses='(){brew uses --installed $1}'
 bralldeps () {
