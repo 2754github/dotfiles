@@ -1,6 +1,6 @@
 # awk、関数コマンド以外では「'」を使用しない
 
-eval "$(starship init zsh)"
+
 
 # 入力補完？
 # autoload -U compinit && compinit -u
@@ -141,4 +141,8 @@ alias secret="sh ~/secret/secret.sh"
 # [zsh: no matches found について](https://eitya.hatenadiary.org/entry/20110707/1310023383)
 setopt nonomatch
 
+
+
+# PATHを通す
+eval "$(starship init zsh)"
 eval "$(anyenv init -)"
