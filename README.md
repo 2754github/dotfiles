@@ -49,5 +49,3 @@ $ exec $SHELL -l
 - `$HOME/Library/Application\ Support/Code/User/settings.json`の共有
 - `$HOME/.vscode/extensions`の共有
 - `$HOME/.ssh/config`の共有
-- `$HOME/.gitconfig`の共有
-- `$HOME/.config/git/ignore`の共有

@@ -1,0 +1,10 @@
+[user]
+  name = 2754github
+  email = fkesys@gmail.com
+[core]
+  quotepath = false
+[push]
+  default = current
+[rebase]
+  autosquash = true
+

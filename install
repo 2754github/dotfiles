@@ -27,3 +27,11 @@ fi
 if [ ! -f $HOME/.config/starship.toml ]; then
   ln -s $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
 fi
+
+if [ ! -f $HOME/.gitconfig ]; then
+  ln -s $HOME/dotfiles/.gitconfig $HOME/.gitconfig
+fi
+
+if [ ! -f $HOME/.config/git/ignore ]; then
+  ln -s $HOME/dotfiles/config_git_ignore $HOME/.config/git/ignore
+fi
