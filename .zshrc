@@ -52,6 +52,8 @@ brdep () {
     echo $formula $(brew uses --installed $formula | wc -l) $(brew uses --installed $formula)
   done
 }
+# https://yulii.github.io/brew-cleanup-installed-formulae-20200509.html
+alias br0="brew list --formula | xargs -I{} sh -c 'brew uses --installed {} | wc -l | xargs printf \"%10s is used by %1d formula.\n\" {}' | grep \"[^1-9]0 formula\""
 
 
 # docker aliases
