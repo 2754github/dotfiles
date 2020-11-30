@@ -171,10 +171,6 @@ vsc_rm () {
 }
 
 
-# my aliasis
-alias secret="sh ~/secret/secret.sh"
-
-
 # PATHを通す
 eval "$(starship init zsh)"
 eval "$(anyenv init -)"
