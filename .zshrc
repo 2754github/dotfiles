@@ -77,9 +77,12 @@ alias dcr="docker-compose run --rm"
 # git aliases
 alias github="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)"
 alias gpr="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)/pulls?q=author%3A%40me+"
+alias gb="git branch"
 alias gl="git log --oneline -7"
 alias gs="git status -s"
+alias gcm="git commit -m "
 alias gp="git push origin HEAD"
+alias gpf="git push -f origin HEAD"
 g () {
   local subcommands subcommand
   subcommands="git add -A\ngit rebase -i HEAD~?\ngit pull\nキャンセル" &&
