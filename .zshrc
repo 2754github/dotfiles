@@ -101,7 +101,7 @@ g () {
   fi
 }
 gnew () {
-  git checkout master &&
+  git checkout main || git checkout master &&
   git pull &&
   echo "新しいブランチ名を入力してください:" &&
   read branch &&
