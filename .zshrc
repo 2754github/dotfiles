@@ -82,14 +82,10 @@ alias gs="git status -s"
 alias gp="git push origin HEAD"
 g () {
   local subcommands subcommand
-  subcommands="git add -A\ngit commit -m ?\ngit rebase -i HEAD~?\ngit pull\nキャンセル" &&
+  subcommands="git add -A\ngit rebase -i HEAD~?\ngit pull\nキャンセル" &&
   subcommand=$(echo $subcommands | fzf +m) &&
   if [ $subcommand = "git add -A" ]; then
     git add -A
-  elif [ $subcommand = "git commit -m ?" ]; then
-    echo "コミットメッセージを入力してください:" &&
-    read message &&
-    git commit -m $message
   elif [ $subcommand = "git rebase -i HEAD~?" ]; then
     echo "n個前のコミットまで遡ります:" &&
     read n &&
@@ -128,13 +124,6 @@ gsub () {
   files=$(git status -s) &&
   file=$(echo $files | fzf +m) &&
   git reset HEAD $(echo $file | awk '{print $2}')
-}
-gcom () {
-  git add -i &&
-  git log --oneline -3 &&
-  echo "コミットメッセージを入力してください:" &&
-  read message &&
-  git commit -m $message
 }
 gcf () {
   local commits commit
