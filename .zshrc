@@ -105,7 +105,7 @@ gnew () {
   git pull &&
   echo "新しいブランチ名を入力してください:" &&
   read branch &&
-  git switch -c $branch &&
+  git switch -c $branch || git checkout -b $branch &&
   git commit --allow-empty -m "NOPR: squash me [ci skip]" &&
   git push -u origin HEAD
 }
@@ -119,7 +119,8 @@ gre () {
   local files file
   files=$(git status -s) &&
   file=$(echo $files | fzf +m) &&
-  git restore $(echo $file | awk '{print $2}')
+  git restore $(echo $file | awk '{print $2}') ||
+  git checkout $(echo $file | awk '{print $2}')
 }
 # 説明: git addによりステージングされたファイルをステージング前の状態に戻す。
 gsub () {
@@ -145,7 +146,8 @@ gsw () {
   local branches branch
   branches=$(git branch) &&
   branch=$(echo $branches | fzf +m) &&
-  git switch $(echo $branch | awk '{print $1}' | sed 's/.* //')
+  git switch $(echo $branch | awk '{print $1}' | sed 's/.* //') ||
+  git checkout $(echo $branch | awk '{print $1}' | sed 's/.* //')
 }
 
 
