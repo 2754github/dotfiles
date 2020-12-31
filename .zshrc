@@ -105,25 +105,13 @@ gnew () {
   git commit --allow-empty -m "NOPR: squash me [ci skip]" &&
   git push -u origin HEAD
 }
-gd () {
-  local files file
+gf () {
+  local subcommands subcommand files file
+  subcommands="diff\nadd\nrestore\nsubtract\ncheckout" &&
+  subcommand=$(echo $subcommands | fzf +m) &&
   files=$(git status -s) &&
-  file=$(echo $files | fzf +m) &&
-  git diff $(echo $file | awk '{print $2}')
-}
-gre () {
-  local files file
-  files=$(git status -s) &&
-  file=$(echo $files | fzf +m) &&
-  git restore $(echo $file | awk '{print $2}') ||
-  git checkout $(echo $file | awk '{print $2}')
-}
-# 説明: git addによりステージングされたファイルをステージング前の状態に戻す。
-gsub () {
-  local files file
-  files=$(git status -s) &&
-  file=$(echo $files | fzf +m) &&
-  git reset HEAD $(echo $file | awk '{print $2}')
+  file=$(echo $files | fzf +m | awk '{print $2}') &&
+  git $subcommand $file
 }
 gcf () {
   local commits commit
