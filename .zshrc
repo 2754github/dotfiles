@@ -114,7 +114,11 @@ gf () {
   subcommand=$(echo $subcommands | fzf +m) &&
   files=$(git status -s) &&
   file=$(echo $files | fzf +m | awk '{print $2}') &&
-  git $subcommand $file
+  if [ $subcommand = "subtract" ]; then
+    git reset HEAD $file
+  else
+    git $subcommand $file
+  fi
 }
 gcf () {
   local commits commit
