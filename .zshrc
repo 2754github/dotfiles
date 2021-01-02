@@ -1,6 +1,33 @@
 #「"」の使用を心がける。（ただし、awk/sedでは「'」。）
 
 
+# ========== history と completion ===============
+# 参考: https://zenn.dev/k4zu/articles/zsh-tutorial#.zshrc%E3%81%AE%E8%A8%98%E8%BF%B0
+# 「compaudit | xargs chmod g-w」を叩く必要がある（https://github.com/zsh-users/zsh-completions/issues/433#issuecomment-748519431）
+
+# ========== history ============================
+HISTFILE=$HOME/.zsh_history # ヒストリファイルの場所
+SAVEHIST=100                # ヒストリファイルに保存するコマンド数
+HISTSIZE=100                # メモリ上に保存する（検索できる）コマンド数
+setopt share_history        # 複数タブ間でヒストリファイルを共有する
+setopt append_history       # 毎回ヒストリファイルを作るのではなく、追加していく形にする
+setopt inc_append_history   # コマンド実行時に、そのコマンドをヒストリファイルに追加する
+
+# ========== completion =========================
+# 補完機能の有効化
+autoload -Uz compinit && compinit
+
+# 補完候補を「そのまま」「小 → 大文字」「大 → 小文字」の順に探す
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
+
+# 補完方法毎にグループ化
+zstyle ':completion:*' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' group-name ''
+
+# 補完侯補を一覧メニューから選択（select=2: 補完候補が2つ以上なければすぐに補完）
+zstyle ':completion:*:default' menu select=2
+
+
 # [【zsh】curlでURLクエリ付きでGETしようとすると「no matches found」になるとき](https://qiita.com/kure/items/1b592cac4ecc360ba2de)
 # [【shell】zshでno matches found。](https://shirusu-ni-tarazu.hatenablog.jp/entry/2013/01/18/034233)
 # [zsh: no matches found について](https://eitya.hatenadiary.org/entry/20110707/1310023383)
