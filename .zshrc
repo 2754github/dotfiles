@@ -104,6 +104,13 @@ alias gs="git status -s"
 alias gcm="git commit -m "
 alias gp="git push origin HEAD"
 alias gpf="git push -f origin HEAD"
+gp1 () {
+  local current commits commit
+  current=$(git branch --contains=HEAD | awk '{print $2}') &&
+  commits=$(git log --oneline origin/$current..HEAD) &&
+  commit=$(echo $commits | fzf +m) &&
+  git push origin $(echo $commit | awk '{print $1}'):refs/heads/$current
+}
 g () {
   local subcommands subcommand
   subcommands="git add -A\ngit rebase -i HEAD~?\ngit pull\nキャンセル" &&
