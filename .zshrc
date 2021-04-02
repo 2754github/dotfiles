@@ -89,7 +89,7 @@ alias drm="docker system prune"
 
 
 # ========== docker-compose aliases ========================================
-alias dcu="docker-compose up"
+alias dc="docker-compose"
 alias dcr="docker-compose run --rm"
 # alias -g cre:show="rails credentials:show"
 # alias -g cre:edit="bash -c 'EDITOR=vi bin/rails credentials:edit'"
