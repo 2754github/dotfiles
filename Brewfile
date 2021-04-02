@@ -20,7 +20,7 @@ cask "visual-studio-code"
 # チャットツールたち
 # cask "discord"
 cask "slack"
-cask "zoomus"
+cask "zoom"
 
 # App Store でしかインストールできないツールたち
 brew "mas"
