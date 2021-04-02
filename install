@@ -38,3 +38,6 @@ fi
 
 # Brewfileにある物をインストール
 brew bundle -v --file $HOME/dotfiles/Brewfile
+
+# https://qiita.com/s_Pure/items/9b90155d8e3e545c0733
+brew link --overwrite git
