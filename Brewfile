@@ -9,6 +9,8 @@ brew "starship"
 
 # 開発に必要なツールたち
 brew "anyenv"
+cask "clipy"
+cask "cmd-eikana"
 brew "direnv"
 brew "docker"
 cask "docker"
