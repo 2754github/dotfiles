@@ -163,14 +163,14 @@ gsw () {
 }
 
 
-# ========== vscode aliases ================================================
+# ========== VSCode aliases ================================================
 vsc () {
   echo "Settings => $HOME/Library/Application\ Support/Code/User/settings.json" &&
   cat $HOME/Library/Application\ Support/Code/User/settings.json &&
   echo "Extensions => $HOME/.vscode/extensions" &&
   ll $HOME/.vscode/extensions
 }
-vsc_rm () {
+vsc-rm () {
   local extensions extension
   extensions=$(ls $HOME/.vscode/extensions) &&
   extension=$(echo $extensions | fzf +m) &&
