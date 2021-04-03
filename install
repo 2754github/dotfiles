@@ -23,6 +23,7 @@ if [ ! -d $HOME/.config/git ]; then
 fi
 
 # フォントをインストール
+# https://qiita.com/mktktmr/items/5481eac60b96c80cc262
 if [ ! -d $HOME/Library/Fonts ]; then
   brew tap sanemat/font
   brew install ricty --with-powerline
