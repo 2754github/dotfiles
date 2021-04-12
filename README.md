@@ -2,7 +2,7 @@
 
 環境構築を容易にするためのリポジトリ。
 
-# 前提条件
+# 前提
 
 zsh であること
 
@@ -26,24 +26,17 @@ $ chmod u+x $HOME/dotfiles/install && $HOME/dotfiles/install
 $ exec $SHELL -l
 ```
 
-# ターミナル（zsh）の設定
+# 細かい設定
 
-- テキスト
-  - 背景: 不透明度 50~80%
-  - フォント: `Ricty for Powerline 18pt.`
-  - Text: 全て ☑️
-    - Text: シアン
-    - ボールドテキスト: オレンジ
-    - 選択部分: パープル
-- ウインドウ
-  - ウインドウサイズ: 列 160 x 行 40
+- https://github.com/2754github/dotfiles/blob/master/CONFIG.md
 
 # 参考
 
-- [Starship（シェルフレームワーク）](https://starship.rs/ja-JP/)
-- [exa（ls の代替）](https://github.com/ogham/exa)
 - [bat（cat の代替）](https://github.com/sharkdp/bat)
+- [exa（ls の代替）](https://github.com/ogham/exa)
+- [fzf（あいまい検索）](https://github.com/junegunn/fzf)
 - [ripgrep（grep の代替）](https://github.com/BurntSushi/ripgrep)
+- [Starship（シェルフレームワーク）](https://starship.rs/ja-JP/)
 - [Brewfile を使う](https://qiita.com/d0ne1s/items/90974ad472c2d891e784)
 
 # next scope
