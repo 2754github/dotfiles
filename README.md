@@ -26,6 +26,26 @@ $ chmod u+x $HOME/dotfiles/install && $HOME/dotfiles/install
 $ exec $SHELL -l
 ```
 
+<details>
+<summary>zsh compinit: insecure directories, run compaudit for list.</summary>
+<div>
+
+```zsh:ターミナル
+Ignore insecure directories and continue [y] or abort compinit [n]?
+> y
+
+$ compaudit
+There are insecure directories:
+/usr/local/share/zsh/site-functions
+/usr/local/share/zsh
+
+$ chmod 755 /usr/local/share/zsh/site-functions /usr/local/share/zsh
+$ exec $SHELL -l
+```
+
+</div>
+</details>
+
 # 細かい設定
 
 - https://github.com/2754github/dotfiles/blob/master/CONFIG.md
