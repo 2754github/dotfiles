@@ -1,18 +1,21 @@
 #!/bin/sh
 
-set -e
+set -eu
 
 # シンボリックリンクを貼る
 if [ ! -f $HOME/.zshrc ]; then
   ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 fi
 
-if [ ! -f $HOME/.config/starship.toml ]; then
-  ln -s $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
-fi
-
 if [ ! -f $HOME/.gitconfig ]; then
   ln -s $HOME/dotfiles/.gitconfig $HOME/.gitconfig
+fi
+
+if [ ! -d $HOME/.config ]; then
+  mkdir $HOME/.config
+  if [ ! -f $HOME/.config/starship.toml ]; then
+    ln -s $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
+  fi
 fi
 
 if [ ! -d $HOME/.config/git ]; then
@@ -20,6 +23,12 @@ if [ ! -d $HOME/.config/git ]; then
   if [ ! -f $HOME/.config/git/ignore ]; then
     ln -s $HOME/dotfiles/config_git_ignore $HOME/.config/git/ignore
   fi
+fi
+
+# Homebrewをインストール
+if [ ! -f /usr/local/bin/brew ]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  sudo chown -R $(whoami):admin /usr/local/*
 fi
 
 # フォントをインストール
@@ -31,11 +40,7 @@ if [ ! -d $HOME/Library/Fonts ]; then
   fc-cache -vf
 fi
 
-# Homebrewをインストール
-if [ ! -f /usr/local/bin/brew ]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-  sudo chown -R $(whoami):admin /usr/local/*
-fi
+set +e
 
 # Brewfileにある物をインストール
 brew bundle -v --file $HOME/dotfiles/Brewfile
