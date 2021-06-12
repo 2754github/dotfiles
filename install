@@ -27,6 +27,14 @@ if [ ! -f $HOME/.config/git/ignore ]; then
   ln -s $HOME/dotfiles/config_git_ignore $HOME/.config/git/ignore
 fi
 
+if [ ! -d $HOME/.ssh ]; then
+  mkdir $HOME/.ssh
+fi
+
+if [ ! -f $HOME/.ssh/config ]; then
+  ln -s $HOME/dotfiles/ssh_config $HOME/.ssh/config
+fi
+
 # Homebrewをインストール
 if [ ! -f /usr/local/bin/brew ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"

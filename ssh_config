@@ -1,0 +1,16 @@
+Host *
+  ForwardAgent yes
+
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+
+  ServerAliveInterval 60
+  ServerAliveCountMax 5
+  TCPKeepAlive yes
+
+  AddKeysToAgent yes
+  UseKeychain yes
+
+  IdentitiesOnly yes
+
+  LogLevel FATAL

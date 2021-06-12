@@ -64,4 +64,3 @@ $ exec $SHELL -l
 - ターミナルの設定等のスクリプト化
 - `$HOME/Library/Application\ Support/Code/User/settings.json`の共有
 - `$HOME/.vscode/extensions`の共有
-- `$HOME/.ssh/config`の共有
