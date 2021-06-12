@@ -47,17 +47,15 @@ tree () { exa -alghF --git --ignore-glob='.git|node_modules' --time-style=long-i
 
 
 # ========== zsh aliases ===================================================
-alias vz="vim ~/.zshrc"
 alias cz="bat ~/.zshrc"
-alias sz="source ~/.zshrc"
 alias exsh="exec $SHELL -l"
-alias rmd="rm -rf"
+alias rmrf="rm -rf"
 alias rmdsstore="find . -name '.DS_Store' -type f -ls -delete"
-# 説明: 曖昧検索版cd
-fcd () {
-  local dir
-  dir=$(find ${1:-.} -path "*/\.*" -prune -o -type d -print 2> /dev/null | fzf +m) &&
-  cd $dir
+# うろ覚えcd
+cdf () {
+  local file &&
+  file=$(find ${1:-.} -path "*/\.*" -prune -o -type f -print 2> /dev/null | fzf +m) &&
+  cd ${file%/*}
 }
 
 
