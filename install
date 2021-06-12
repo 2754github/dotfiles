@@ -56,3 +56,6 @@ set -e
 
 # apple git -> git：https://qiita.com/s_Pure/items/9b90155d8e3e545c0733
 brew link --overwrite git
+
+# https://github.com/zsh-users/zsh-completions/issues/433#issuecomment-748519431
+compaudit | xargs chmod g-w
