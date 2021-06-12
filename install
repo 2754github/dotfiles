@@ -2,7 +2,7 @@
 
 set -eu
 
-# シンボリックリンクを貼る
+# シンボリックリンクを貼る（順番大事）
 if [ ! -f $HOME/.zshrc ]; then
   ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 fi
@@ -13,16 +13,18 @@ fi
 
 if [ ! -d $HOME/.config ]; then
   mkdir $HOME/.config
-  if [ ! -f $HOME/.config/starship.toml ]; then
-    ln -s $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
-  fi
+fi
+
+if [ ! -f $HOME/.config/starship.toml ]; then
+  ln -s $HOME/dotfiles/starship.toml $HOME/.config/starship.toml
 fi
 
 if [ ! -d $HOME/.config/git ]; then
   mkdir $HOME/.config/git
-  if [ ! -f $HOME/.config/git/ignore ]; then
-    ln -s $HOME/dotfiles/config_git_ignore $HOME/.config/git/ignore
-  fi
+fi
+
+if [ ! -f $HOME/.config/git/ignore ]; then
+  ln -s $HOME/dotfiles/config_git_ignore $HOME/.config/git/ignore
 fi
 
 # Homebrewをインストール
@@ -31,8 +33,7 @@ if [ ! -f /usr/local/bin/brew ]; then
   sudo chown -R $(whoami):admin /usr/local/*
 fi
 
-# フォントをインストール
-# https://qiita.com/mktktmr/items/5481eac60b96c80cc262
+# フォントをインストール：https://qiita.com/mktktmr/items/5481eac60b96c80cc262
 if [ ! -d $HOME/Library/Fonts ]; then
   brew tap sanemat/font
   brew install ricty --with-powerline
@@ -40,10 +41,10 @@ if [ ! -d $HOME/Library/Fonts ]; then
   fc-cache -vf
 fi
 
-set +e
-
 # Brewfileにある物をインストール
+set +e
 brew bundle -v --file $HOME/dotfiles/Brewfile
+set -e
 
-# https://qiita.com/s_Pure/items/9b90155d8e3e545c0733
+# apple git -> git：https://qiita.com/s_Pure/items/9b90155d8e3e545c0733
 brew link --overwrite git
