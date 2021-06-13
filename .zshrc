@@ -131,21 +131,23 @@ brewtree () {
 
 
 # ========== docker aliases ================================================
-alias dps="docker system df"
+alias dsd="docker system df"
 dls () {
-  local subcommands subcommand
+  local subcommands subcommand &&
   subcommands="image\ncontainer\nvolume\nnetwork" &&
   subcommand=$(echo $subcommands | fzf +m) &&
   docker $subcommand ls
 }
-alias drm="docker system prune"
+dlsa () {
+  local subcommands subcommand &&
+  subcommands="image\ncontainer" &&
+  subcommand=$(echo $subcommands | fzf +m) &&
+  docker $subcommand ls -a
+}
+alias dsp="docker system prune"
 
-
-# ========== docker-compose aliases ========================================
-alias dc="docker-compose"
-alias dcr="docker-compose run --rm"
-# alias -g cre:show="rails credentials:show"
-# alias -g cre:edit="bash -c 'EDITOR=vi bin/rails credentials:edit'"
+alias dc="docker compose"
+alias dcr="docker compose run --rm"
 
 
 # ========== git aliases ===================================================
