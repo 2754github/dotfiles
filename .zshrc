@@ -151,36 +151,21 @@ alias dcr="docker compose run --rm"
 
 
 # ========== git aliases ===================================================
-alias github="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)"
-alias gpr="open https://github.$(git config remote.origin.url | cut -f2 -d. | tr : /)/pulls?q=author%3A%40me+"
 alias gb="git branch"
 alias gl="git log --oneline -7"
 alias gs="git status -s"
+alias gd="git diff"
+alias ga="git add -A"
 alias gcm="git commit -m "
 alias gp="git push origin HEAD"
-alias gpf="git push -f origin HEAD"
+alias gfpush="git push -f origin HEAD"
+alias gfpull="git fetch && git reset --hard origin/$(git branch | grep '\*' | awk '{print $2}')"
 gp1 () {
-  local current commits commit
-  current=$(git branch --contains=HEAD | awk '{print $2}') &&
+  local current commits commit &&
+  current=$(git branch | grep '\*' | awk '{print $2}') &&
   commits=$(git log --oneline origin/$current..HEAD) &&
   commit=$(echo $commits | fzf +m) &&
   git push origin $(echo $commit | awk '{print $1}'):refs/heads/$current
-}
-g () {
-  local subcommands subcommand
-  subcommands="git add -A\ngit rebase -i HEAD~?\ngit pull\nキャンセル" &&
-  subcommand=$(echo $subcommands | fzf +m) &&
-  if [ $subcommand = "git add -A" ]; then
-    git add -A
-  elif [ $subcommand = "git rebase -i HEAD~?" ]; then
-    echo "n個前のコミットまで遡ります:" &&
-    read n &&
-    git rebase -i HEAD~$n
-  elif [ $subcommand = "git pull" ]; then
-    git pull
-  else
-    echo "キャンセルしました。"
-  fi
 }
 gnew () {
   git checkout main || git checkout master &&
@@ -188,11 +173,11 @@ gnew () {
   echo "新しいブランチ名を入力してください:" &&
   read branch &&
   git switch -c $branch || git checkout -b $branch &&
-  git commit --allow-empty -m "NOPR: squash me [ci skip]" &&
-  git push -u origin HEAD
+  # git commit --allow-empty -m "NOPR: squash me [ci skip]" &&
+  # git push -u origin HEAD
 }
 gf () {
-  local subcommands subcommand files file
+  local subcommands subcommand files file &&
   subcommands="diff\nadd\nrestore\nsubtract\ncheckout" &&
   subcommand=$(echo $subcommands | fzf +m) &&
   files=$(git status -s) &&
@@ -204,17 +189,24 @@ gf () {
   fi
 }
 gcf () {
-  local commits commit
+  local commits commit &&
   commits=$(git log --oneline) &&
   commit=$(echo $commits | fzf +m) &&
   git commit --fixup=$(echo $commit | awk '{print $1}')
 }
+gr () { git rebase -i HEAD~$1 }
 gsw () {
-  local branches branch
+  local branches branch &&
   branches=$(git branch) &&
   branch=$(echo $branches | fzf +m) &&
   git switch $(echo $branch | awk '{print $1}' | sed 's/.* //') ||
   git checkout $(echo $branch | awk '{print $1}' | sed 's/.* //')
+}
+greflog () {
+  local reflogs reflog &&
+  reflogs=$(git reflog) &&
+  reflog=$(echo $reflogs | fzf +m) &&
+  git reset --hard $(echo $reflog | awk '{print $2}' | sed 's/:$//')
 }
 
 
