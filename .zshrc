@@ -1,4 +1,4 @@
-#「"」の使用を心がける。（ただし、awk/sedでは「'」。）
+#「"」の使用を心がける。（ただし、awk/grep/sed/trでは「'」。）
 
 
 # ========== history と completion ==========================================
@@ -59,25 +59,75 @@ cdf () {
 }
 
 
-# ========== brew & brew cask aliases ======================================
-alias brod="brew outdated && brew outdated --cask"
-# 注意: dockerのupgrade時にはパスワードが求められる。
-brup () {
-  brew update && brew upgrade && brew cleanup -s &&
-  brew upgrade --cask --greedy
+# ========== brew aliases ======================================
+brewinfo () {
+  echo "\n==== brew update ====" &&
+  brew update &&
+  echo "\n==== Installed ====" &&
+  brew list &&
+  echo &&
+  echo -e "\e[1mFormulae\e[0m \e[38;5;12m==>\e[0m $(brew list --formula | wc -l | sed 's/ //g')" &&
+  echo -e "\e[1mCasks\e[0m    \e[38;5;12m==>\e[0m $(brew list --cask | wc -l | sed 's/ //g')" &&
+
+  echo "\n==== Outdated ====" &&
+  echo -e "\e[38;5;12m==>\e[0m \e[1mFormulae\e[0m" &&
+  brew outdated &&
+  echo &&
+  echo -e "\e[38;5;12m==>\e[0m \e[1mCasks\e[0m" &&
+  brew outdated --cask
 }
-brnum () {
-  echo "brew: $(brew list --formula | wc -l)" &&
-  echo "cask: $(brew list --cask | wc -l)"
+
+brewcleanup () {
+  brew cleanup --dry-run &&
+  echo -e "\e[38;5;12m==>\e[0m \e[1mCleanup? [Y/n]\e[0m" &&
+  read input &&
+  if [ "$input" = "Y" ]; then
+    brew cleanup &&
+    echo "Cleanup completed."
+  else
+    echo "Cleanup canceled."
+  fi
 }
-# 説明: 当該formulaがどのformulaに使われているかを出力する。（0ならトップレベルのformula）
-brdep () {
+
+# 注意：dockerのupgrade時にはパスワードが求められる。
+# brewupdate () {
+#   brew update && brew upgrade && brew cleanup -s && brew upgrade --cask --greedy
+# }
+
+# https://yulii.github.io/brew-cleanup-installed-formulae-20200509.html
+brewdeps () {
+  local N deletable_formulae &&
+  deletable_formulae="" &&
   for formula in $(brew list --formula); do
-    echo $formula $(brew uses --installed $formula | wc -l) $(brew uses --installed $formula)
+    N=$(brew uses --installed $formula | wc -l) &&
+    printf "%22s is used by %2d formulae." $formula $N &&
+    if [ $N -eq 0 ]; then
+      deletable_formulae="$deletable_formulae\n$formula" &&
+      echo &&
+    else
+      printf " (" &&
+      echo $(brew uses --installed $formula | tr '\n' ',' | sed 's/,$/)/g' | sed 's/,/, /g') &&
+    fi
+  done
+  echo "\n==== Deletable Formulae ====$deletable_formulae"
+}
+
+brewtree () {
+  local M N &&
+  for formula in $(brew list --formula); do
+    M=$(brew deps --tree $formula | wc -l | sed 's/ //g') &&
+    # expr の 結果が 0 になると 戻り値が 1 になる件：https://qiita.com/wenbose/items/e8eb5a608d6d2fa8b0bf
+    if [ "$M" = "2" ]; then
+      N=0 &&
+    else
+      N=$(expr $M - 2) &&
+    fi
+    echo "$formula depends on \e[1m$N\e[0m formulae." &&
+    if [ "$1" = "-v" ]; then
+      brew deps --tree $formula | sed '1d' &&
+    fi
   done
 }
-# https://yulii.github.io/brew-cleanup-installed-formulae-20200509.html
-alias br0="brew list --formula | xargs -I{} sh -c 'brew uses --installed {} | wc -l | xargs printf \"%10s is used by %1d formula.\n\" {}' | grep \"[^1-9]0 formula\""
 
 
 # ========== docker aliases ================================================
