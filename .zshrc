@@ -218,7 +218,7 @@ vsc () {
   ll $HOME/.vscode/extensions
 }
 vsc-rm () {
-  local extensions extension
+  local extensions extension &&
   extensions=$(ls $HOME/.vscode/extensions) &&
   extension=$(echo $extensions | fzf +m) &&
   echo "$extension を削除しますか？[Y/n]" &&
