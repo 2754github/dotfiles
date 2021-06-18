@@ -16,8 +16,10 @@ brew "docker"
 cask "docker"
 brew "git"
 cask "google-chrome"
+brew "httpie"
 cask "postman"
-cask "sequel-ace"
+# cask "sequel-ace"
+cask "tableplus"
 cask "visual-studio-code"
 
 # チャットツールたち
