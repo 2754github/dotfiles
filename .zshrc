@@ -57,6 +57,31 @@ cdf () {
   file=$(find ${1:-.} -path "*/\.*" -prune -o -type f -print 2> /dev/null | fzf +m) &&
   cd ${file%/*}
 }
+# 【zsh】ipv6をターミナルで簡単に取得したい！：https://zenn.dev/yuuyu/articles/0ade174349327d
+ip () {
+  echo "IPv4: $(ifconfig en0 | awk '/inet / {print $2}')" &&
+  echo "IPv6: $(ifconfig en0 | awk '/inet6 .* prefixlen 64 autoconf temporary/ {print $2}')"
+}
+# dotfilesのシンボリックリンク状況
+sl () {
+  local sl_files &&
+  sl_files=( \
+    $HOME/.zshrc \
+    $HOME/.gitconfig \
+    $HOME/.config/starship.toml \
+    $HOME/.config/git/ignore \
+    $HOME/.ssh/config \
+  ) &&
+  ll $sl_files &&
+  local cnt &&
+  cnt=0 &&
+  for sl_file in $sl_files; do
+    if [ -L $sl_file ]; then
+      cnt=$(expr $cnt + 1) &&
+    fi
+  done
+  echo "dotfilesのシンボリックリンク状況: $cnt/$#sl_files[@]"
+}
 
 
 # ========== brew aliases ======================================
