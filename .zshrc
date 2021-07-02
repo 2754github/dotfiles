@@ -6,8 +6,8 @@
 
 # ========== history =======================================================
 HISTFILE=$HOME/.zsh_history # ヒストリファイルの場所
-SAVEHIST=10000              # ヒストリファイルに保存するコマンド数
-HISTSIZE=10000              # メモリ上に保存する（検索できる）コマンド数
+SAVEHIST=100                # ヒストリファイルに保存するコマンド数
+HISTSIZE=100                # メモリ上に保存する（検索できる）コマンド数
 # setopt share_history        # 複数タブ間でヒストリファイルを共有する
 setopt append_history       # 毎回ヒストリファイルを作るのではなく、追加していく形にする
 setopt inc_append_history   # コマンド実行時に、そのコマンドをヒストリファイルに追加する
@@ -31,9 +31,6 @@ zstyle ":completion:*:default" menu select=2
 # 【shell】zshでno matches found。：https://shirusu-ni-tarazu.hatenablog.jp/entry/2013/01/18/034233
 # zsh: no matches found について：https://eitya.hatenadiary.org/entry/20110707/1310023383
 setopt nonomatch
-
-# 予測入力を設定する：https://blog.tokoyax.com/entry/2017/07/29/zsh_予測入力を設定する
-autoload predict-on && predict-on
 
 # ========== fzf settings ==================================================
 export FZF_DEFAULT_OPTS="--height 70% --reverse"
