@@ -170,6 +170,7 @@ dlsa () {
 }
 alias dsp="docker system prune"
 
+alias d="docker"
 alias dc="docker compose"
 alias dcr="docker compose run --rm"
 
@@ -260,3 +261,4 @@ vsc-rm () {
 eval "$(starship init zsh)"
 eval "$(anyenv init -)"
 eval "$(direnv hook zsh)"
+fpath=(~/dotfiles/.zsh_completion $fpath)
