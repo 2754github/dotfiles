@@ -10,7 +10,7 @@
 [status]
   showUntrackedFiles = all
 
-# git-delta
+# git-delta：https://github.com/dandavison/delta
 [pager]
   diff = delta
   log = delta
@@ -21,10 +21,16 @@
   diffFilter = delta --color-only
 
 [delta]
-  features = side-by-side line-numbers decorations
+  features = line-numbers decorations
   whitespace-error-style = 22 reverse
+  plus-style = syntax "#004d00"
+  minus-style = syntax "#4d0000"
 
 [delta "decorations"]
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
+
+[delta "line-numbers"]
+  line-numbers-plus-style = green
+  line-numbers-minus-style = red
