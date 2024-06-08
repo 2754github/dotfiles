@@ -1,0 +1,30 @@
+# https://github.com/Homebrew/homebrew-bundle#usage
+
+tap "homebrew/cask"
+cask_args appdir: "~/Applications"
+
+# https://starship.rs/guide/#prerequisites
+# https://github.com/ryanoasis/nerd-fonts?tab=readme-ov-file#option-2-homebrew-fonts
+tap "homebrew/cask-fonts"
+cask "font-hack-nerd-font"
+
+brew "bat"
+brew "bluesnooze"
+brew "eza"
+brew "fzf"
+brew "git"
+brew "git-delta"
+brew "jnv"
+brew "mise"
+brew "ripgrep"
+brew "starship"
+brew "zsh-autocomplete"
+
+cask "cmd-eikana"
+cask "google-chrome"
+cask "slack"
+cask "tableplus"
+cask "visual-studio-code"
+cask "zoom"
+
+mas "LINE", id: 539883307

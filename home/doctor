@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -eu
+
+files=(
+  .config/git/config
+  .config/git/ignore
+  .config/starship.toml
+  .ssh/config
+  .npmrc
+  .zshrc
+)
+
+for file in "${files[@]}"; do
+  if [[ ! -L "$HOME/$file" ]]; then
+    echo "❌ [$file] is not symlinked"
+    exit 1
+  fi
+done
+
+if [[ ! -f "$HOME/.ssh/github" ]]; then
+  echo '❌ GitHub SSH key not found'
+  exit 1
+fi
+
+echo "✅ $0"

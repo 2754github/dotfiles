@@ -1,0 +1,8 @@
+**/.next/*
+**/build/*
+**/node_modules/*
+**/out/*
+*.config.cjs
+*.config.js
+*.config.mjs
+*.config.ts

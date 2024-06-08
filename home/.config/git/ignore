@@ -1,0 +1,5 @@
+.memo/
+.vscode/
+.DS_Store
+.env*
+!.env.sample
