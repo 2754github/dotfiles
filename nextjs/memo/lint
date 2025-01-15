@@ -1,0 +1,63 @@
+#!/bin/sh
+
+alias f="rg \
+  -. \
+  -g '!.git/' \
+  -g '!*.lock' \
+  -g '!*.snap' \
+  -g '!*.svg' \
+  -g '!go.sum' \
+  -g '!next-env.d.ts' \
+  -g '!package-lock.json' \
+"
+
+check () {
+  if [[ $(eval $1 | wc -l) -ne $2 ]]; then
+    echo "${BASH_LINENO[0]}: $1"
+    eval $1
+    echo ""
+  fi
+}
+
+echo "comments -----------------------------------------------------------------------"
+f '// (?!eslint-disable).*'    --pcre2 -g '!*.[cm]js'
+f '\{/\* (?!eslint-disable).*' --pcre2 -g '!*.[cm]js'
+f '^\s+\* .*'                          -g '!*.[cm]js'
+
+echo "HTML / CSS ---------------------------------------------------------------------"
+check "f '\b\s\s' -g '!supabase/migrations/*.sql'" 0 # className 内の余分なスペースを検知する。
+check "f '=\" '" 0 # className 内の余分なスペースを検知する。
+check "f '#[0-9A-Fa-f]{6}'" 0 # マジックナンバーの使用を抑制する。
+check "f '\-(50|[1-9]00|950)'" 0 # マジックナンバーの使用を抑制する。
+
+echo "TypeScript ---------------------------------------------------------------------"
+# type
+check "f 'Array'" 0
+check "f '[^(]Boolean'" 0
+check "f 'Dispatch'" 0
+check "f 'JSX.Element'" 0
+check "f '[Rr]eadonly\b'" 0
+check "f 'type \w+ = \{.*\}'" 0 # 改行する。
+# statement
+check "f 'const \w+: (?!.*(FC|Config)).* =' --pcre2" 0
+check "f 'export (type )?\{'" 0
+check "f 'import type'" 0
+check "f 'public '" 0
+check "f '\?:' -g '!*.tsx' -g '!middleware.ts'" 0
+# other
+check "f '!== undefined'" 0 # === undefined を使用する。
+check "f '\w\[\w+\]'" 0 # .at を使用する。
+check "f '\{ \w+: \w+, ' -g '!*.[cm]js' -g '!*.test.ts[x]'" 0 # 2 要素以上のオブジェクトは改行する。
+check "f '\{ \w+, \w+: ' -g '!*.[cm]js' -g '!*.test.ts[x]'" 0 # 2 要素以上のオブジェクトは改行する。
+check "f '\berr' -g '!*.[cm]js'" 0 # e を使用する。
+check "f '\bev'  -g '!*.[cm]js'" 0 # e を使用する。
+
+echo "'use client' -------------------------------------------------------------------"
+f 'use[A-Z]'   -g '*.tsx' -l | sort > lint-tmp-1.txt
+f 'use client' -g '*.tsx' -l | sort > lint-tmp-2.txt
+diff -y lint-tmp-1.txt lint-tmp-2.txt
+rm -f lint-tmp-1.txt lint-tmp-2.txt
+
+echo "Next.js ------------------------------------------------------------------------"
+check "f 'next/image' -g '!middleware.ts'" 0
+check "f 'next/link'" 0

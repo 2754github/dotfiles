@@ -1,0 +1,22 @@
+# https://starship.rs/config/
+
+[[battery.display]]
+threshold = 25
+
+[directory]
+truncation_length = 100
+truncate_to_repo = false
+
+[git_status]
+ahead = '↑ $count/'
+behind = '↓ $count/'
+diverged = '×/'
+untracked = 'U/'
+stashed = 'S/'
+modified = 'M/'
+staged = 'A/'
+renamed = 'R/'
+deleted = 'D/'
+
+[time]
+disabled = false

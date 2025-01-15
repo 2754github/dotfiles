@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+trap teardown EXIT
+function teardown() {
+  echo "✳️  ALL GREEN"
+}
+
+$HOME/dotfiles/home/doctor
+$HOME/dotfiles/brew/doctor

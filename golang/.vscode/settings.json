@@ -1,0 +1,9 @@
+{
+  "go.gopath": "@@@gopath",
+  "go.goroot": "@@@goroot",
+  "gopls": {
+    "formatting.local": "github.com/@@@org/@@@repo"
+  },
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": ["--fast"]
+}

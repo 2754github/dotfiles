@@ -1,0 +1,60 @@
+# https://git-scm.com/docs/git-config
+
+[core]
+  hooksPath = ~/dotfiles/git-hooks
+  ignoreCase = false
+  pager = delta # https://github.com/dandavison/delta#get-started
+  quotepath = false
+
+[diff]
+  algorithm = histogram
+  colorMoved = dimmed-zebra
+
+[fetch]
+  prune = true
+
+[init]
+  defaultBranch = main
+
+[interactive]
+  diffFilter = delta --color-only # https://github.com/dandavison/delta#get-started
+
+[merge]
+  conflictStyle = zdiff3
+
+[push]
+  autoSetupRemote = true
+  default = current
+
+[rebase]
+  autosquash = true
+
+[rerere]
+  enabled = true
+
+[status]
+  showUntrackedFiles = all
+
+[user]
+  email = fkesys@gmail.com
+  name = 2754github
+
+# https://github.com/dandavison/delta/blob/ffec84e3405dae86d3d0ab0f432388233240988e/manual/src/delta-configs-used-in-screenshots.md
+[delta]
+  features = line-numbers decorations
+  # features = side-by-side line-numbers decorations
+  syntax-theme = Dracula
+  plus-style = syntax "#003800"
+  minus-style = syntax "#3f0001"
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+  hunk-header-decoration-style = cyan box ul
+
+[delta "line-numbers"]
+  line-numbers-left-style = cyan
+  line-numbers-right-style = cyan
+  line-numbers-minus-style = 124
+  line-numbers-plus-style = 28

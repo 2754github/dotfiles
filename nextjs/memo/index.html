@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Offset CSS</title>
+    <!-- with Tailwind CSS -->
+    <!-- https://tailwindcss.com/docs/preflight -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body * {
+        outline: 0.4px solid;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      /* https://ics.media/entry/240411/#まとめ */
+      body {
+        line-break: strict;
+        overflow-wrap: anywhere;
+        word-break: normal;
+      }
+
+      label,
+      input,
+      select,
+      textarea {
+        display: block;
+      }
+
+      a,
+      button,
+      span {
+        display: block;
+        width: max-content;
+      }
+    </style>
+  </head>
+  <body>
+    <header>header</header>
+    <aside>aside-1</aside>
+    <main class="relative p-4 space-y-4">
+      <span class="absolute top-0 left-0">main</span>
+      <article class="relative p-4 space-y-4">
+        <span class="absolute top-0 left-0">article</span>
+        <h1>h1</h1>
+        <p>p</p>
+        <ul>
+          ul
+          <li>li-1</li>
+          <li>li-2</li>
+          <li>li-3</li>
+        </ul>
+        <form>
+          form
+          <label>
+            label-1
+            <input />
+          </label>
+          <label
+            class="flex w-max cursor-pointer select-none items-center gap-2"
+          >
+            <input type="checkbox" class="cursor-pointer" />
+            label-2
+          </label>
+          <pre class="text-red-400">
+            &lt;label class="flex w-max cursor-pointer select-none items-center gap-2"&gt;
+              &lt;input type="checkbox" class="cursor-pointer" /&gt;
+              label-2
+            &lt;/label&gt;
+          </pre>
+          <label>
+            label-3
+            <select>
+              <option>-</option>
+              <option>option-1</option>
+              <option>option-2</option>
+            </select>
+          </label>
+          <label>
+            label-4
+            <textarea></textarea>
+          </label>
+        </form>
+        <div>div</div>
+        <svg viewBox="0 0 48 48" height="48" width="48">
+          <circle cx="24" cy="24" r="24" />
+        </svg>
+        <a>a</a>
+        <button>button</button>
+        <span>span</span>
+        <section class="relative p-4 space-y-4">
+          <span class="absolute top-0 left-0">section</span>
+          <div
+            class="bg-red-50 flex flex-col flex-wrap justify-start items-start content-start gap-2"
+          >
+            Stack
+            <h2>h2</h2>
+            <p>p</p>
+            <div>div</div>
+            <span>span</span>
+          </div>
+          <div
+            class="bg-green-50 flex flex-col flex-wrap justify-start items-center content-center gap-2"
+          >
+            VStack
+            <h2>h2</h2>
+            <p>p</p>
+            <div>div</div>
+            <span>span</span>
+          </div>
+          <div
+            class="bg-blue-50 flex flex-row flex-wrap justify-start items-center content-center gap-2"
+          >
+            HStack
+            <h2>h2</h2>
+            <p>p</p>
+            <div>div</div>
+            <span>span</span>
+          </div>
+        </section>
+      </article>
+    </main>
+    <aside>aside-2</aside>
+    <footer>footer</footer>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -eu
+
+branches=(
+  develop
+  main
+  master
+)
+
+current=$(git branch --show-current)
+
+for branch in "${branches[@]}"; do
+  if [[ "$branch" == "$current" ]]; then
+    echo "❌ push to [$branch] is not allowed"
+    exit 1
+  fi
+done
+
+echo "✅ push target is not [${branches[@]}]"

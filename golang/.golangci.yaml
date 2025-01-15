@@ -1,0 +1,21 @@
+linters:
+  enable:
+    - revive
+linters-settings:
+  revive:
+    enable-all-rules: true
+    rules:
+      - name: add-constant
+        disabled: true
+      - name: cognitive-complexity
+        disabled: true
+      - name: line-length-limit
+        disabled: true
+      - name: max-public-structs
+        disabled: true
+      - name: unexported-return
+        disabled: true
+      - name: unused-parameter
+        disabled: true
+      - name: unused-receiver
+        disabled: true
