@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eu
+
+say '終わったよ〜！'
+echo '-'
+date '+%Y-%m-%d %H:%M:%S'
+today=$(date +%d)
+if [[ "$today" -lt 15 ]]; then
+  since=$(date -v-1m +%Y%m15)
+  until=$(date +%Y%m15)
+else
+  since=$(date +%Y%m15)
+  until=$(date -v+1m +%Y%m15)
+fi
+npx ccusage@latest --since $since --until $until --json \
+| jq -r '"約\(.totals.totalCost * 150 | round)円（$\(.totals.totalCost * 100 | round / 100)）"'

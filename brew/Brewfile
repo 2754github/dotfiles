@@ -1,0 +1,32 @@
+# https://github.com/Homebrew/brew/blob/master/docs/Brew-Bundle-and-Brewfile.md#advanced-brewfiles
+
+cask_args appdir: "/Applications"
+
+# https://starship.rs/guide/#prerequisites
+# https://github.com/ryanoasis/nerd-fonts/blob/master/readme_ja.md#その-4-homebrew-fonts
+cask "font-hack-nerd-font"
+
+brew "bat"
+brew "duckdb"
+brew "eza"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "git-delta"
+brew "jq"
+brew "mise"
+brew "ripgrep"
+brew "starship"
+brew "zsh-autocomplete"
+
+cask "bluesnooze"
+cask "cmd-eikana"
+cask "google-chrome"
+cask "orbstack"
+cask "slack"
+cask "tableplus"
+cask "visual-studio-code"
+cask "zoom"
+
+# Klack
+# Logi Options
