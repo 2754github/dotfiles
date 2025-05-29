@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -eu
+
+files=(
+  .config/git/config
+  .config/git/ignore
+  .config/starship.toml
+  .ssh/config
+  .zshrc
+  .npmrc
+)
+
+for file in "${files[@]}"; do
+  if [[ ! -L "$HOME/$file" ]]; then
+    echo "❌ [$file] is not symlinked"
+    exit 1
+  fi
+done
+
+if [[ ! -f "$HOME/.ssh/github" ]]; then
+  echo '❌ GitHub SSH key not found'
+  exit 1
+fi
+
+if [[ "$SHELL_SESSIONS_DISABLE" != 1 ]]; then
+  echo '❌ zsh session is enabled'
+  exit 1
+fi
+
+echo "✅ $0"

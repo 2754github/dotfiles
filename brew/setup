@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -eu
+
+# https://brew.sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# https://github.com/Homebrew/brew/blob/master/docs/Manpage.md?plain=1#L222-L225
+brew bundle --file=$HOME/dotfiles/brew/Brewfile -v
+
+# https://qiita.com/s_Pure/items/9b90155d8e3e545c0733
+brew link --overwrite git

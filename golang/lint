@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# ディレクトリを無視する場合、`-g '!folder/'` で良い。
+# ディレクトリを注視する場合、`-g 'folder/**'` にしなければならない。
+
+alias f="rg \
+  -. \
+  -g '!.git/' \
+  -g '!*.lock' \
+  -g '!*.snap' \
+  -g '!*.svg' \
+  -g '!go.sum' \
+  -g '!package-lock.json' \
+  -g '!pnpm-lock.yaml' \
+"
+
+check () {
+  if [[ $(eval $1 | wc -l) -ne $2 ]]; then
+    echo "${BASH_LINENO[0]}: $1"
+    eval $1
+    echo ""
+  fi
+}
+
+# コメント関連 ----------------------------------------------------------------------
+# //以外のコメントは禁止。
+check "f '/\*'" 0
+
+# コメントは大文字で開始する。
+check "f '// [^A-Z]' -g '*.go'" 0
+
+# コメントはピリオドで終了する。
+check "f '// .+[^）。).]$' -g '*.go'" 0
+# -----------------------------------------------------------------------------
+
+# fmt.Errorf以外は禁止。
+check "f 'fmt\.[^E]' -g '!*_test.go'" 0
+
+# ポインタレシーバ以外は禁止。
+check "f 'func \([^)]+ [^*]'" 0
+
+# IIFEの関数は()で囲む。
+check "f 'go func'" 0
+
+# 1行importは禁止。
+check "f 'import \"'" 0
+
+# パッケージ内でのログ出力は禁止。
+check "f 'log' -g 'internal/pkg/**'" 0
+
+# logではなく、log/slogを使用する。
+check "f '\"log\"'" 0
+
+# panicは禁止。
+check "f 'panic\('" 0
+
+# reflectは禁止。（テストではgithub.com/google/go-cmp/cmpを使用する。）
+check "f '\"reflect\"'" 0
+
+# If with a short statementは禁止。
+check "f '; ' -g '!*_test.go'" 0
