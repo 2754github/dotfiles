@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -eu
+
+date '+%Y-%m-%d %H:%M:%S（%Z）'
+if [[ $(date +%-d) -lt 6 ]]; then
+  since=$(date -v-1m +%Y%m06)
+  until=$(date +%Y%m06)
+else
+  since=$(date +%Y%m06)
+  until=$(date -v+1m +%Y%m06)
+fi
+npx ccusage@latest --since $since --until $until --json \
+| jq -r '"約\(.totals.totalCost * 150 | round)円（$\(.totals.totalCost * 100 | round / 100)）"'
