@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+rm -fr .next
+rm -fr build
+rm -fr out
+# rm -fr node_modules
+# npm ci
+npm run type
+npm run lint
+npm run build
+say '終わったよ〜！'

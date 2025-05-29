@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+
+/* custom start */
+body {
+  /* https://ics.media/entry/240411/#まとめ */
+  overflow-wrap: anywhere;
+  word-break: normal;
+  line-break: strict;
+  hyphens: auto;
+
+  /* https://capgo.app/ja/blog/basic-js-css-config-for-native-app-look/ */
+  user-select: none;
+  -webkit-touch-callout: none;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* https://coliss.com/articles/build-websites/operation/css/new-reset-rebootcss.html#h208 */
+a,
+area,
+button,
+[role='button'],
+input:not([type='range']),
+label,
+select,
+summary,
+textarea {
+  touch-action: manipulation;
+}
+/* custom end */
