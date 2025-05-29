@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -eu
+
+say '終わったよ〜！'
+echo ''
+date '+%Y-%m-%d %H:%M:%S'
+npx ccusage@latest --json | jq -r '"約\(.totals.totalCost * 150 | round)円（$\(.totals.totalCost * 100 | round / 100)）"'
