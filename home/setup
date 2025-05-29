@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -eu
+
+mkdir -p $HOME/.config/git
+rm -f $HOME/.config/git/config && ln -s $HOME/dotfiles/home/.config/git/config $HOME/.config/git/config
+rm -f $HOME/.config/git/ignore && ln -s $HOME/dotfiles/home/.config/git/ignore $HOME/.config/git/ignore
+
+rm -f $HOME/.config/starship.toml && ln -s $HOME/dotfiles/home/.config/starship.toml $HOME/.config/starship.toml
+
+mkdir -p $HOME/.ssh
+rm -f $HOME/.ssh/config && ln -s $HOME/dotfiles/home/.ssh/config $HOME/.ssh/config
+
+rm -f $HOME/.zshrc && ln -s $HOME/dotfiles/home/.zshrc $HOME/.zshrc
+
+rm -f $HOME/.npmrc && ln -s $HOME/dotfiles/nextjs/.npmrc $HOME/.npmrc
+
+# https://superuser.com/questions/1610587/disable-zsh-session-folder-completely
+rm -fr $HOME/.zsh_sessions && (echo; echo 'export SHELL_SESSIONS_DISABLE=1') >> $HOME/.zprofile
+
+source $HOME/.zshrc

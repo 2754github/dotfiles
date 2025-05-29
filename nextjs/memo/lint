@@ -1,0 +1,131 @@
+#!/bin/sh
+
+# ディレクトリを無視する場合、`-g '!folder/'` で良い。
+# ディレクトリを注視する場合、`-g 'folder/**'` にしなければならない。
+
+alias f="rg \
+  -. \
+  -g '!.git/' \
+  -g '!*.lock' \
+  -g '!*.snap' \
+  -g '!*.svg' \
+  -g '!go.sum' \
+  -g '!package-lock.json' \
+  -g '!pnpm-lock.yaml' \
+  -g '!*.cjs' \
+  -g '!*.mjs' \
+  -g '!lib/supabase/type.ts' \
+  -g '!shadcn/' \
+  -g '!supabase/' \
+  -g '!next.config.ts' \
+"
+
+check () {
+  if [[ $(eval $1 | wc -l) -ne $2 ]]; then
+    echo "${BASH_LINENO[0]}: $1"
+    eval $1
+    echo ''
+  fi
+}
+
+echo '---------- comment -----------------------------------------------------'
+# //以外のコメントは禁止。
+check "f '^\s+\* .*'" 0
+
+# コメントは最低限。
+f '\{/\* (?!eslint-disable).*' --pcre2
+f '// (?!eslint-disable|https|@ts-expect-error).*' --pcre2
+
+# eslint-disableは禁止。（eslint-disable-next-lineを使用する。）
+check "f 'eslint-disable '" 0
+
+echo '---------- HTML & CSS --------------------------------------------------'
+# className内の余分なスペースは禁止。
+check "f '=\" '" 0
+check "f '\b\s\s'" 0
+# マジックナンバーは禁止。
+check "f '#[0-9a-fA-F]{6}'" 0
+check "f '\-(50|[1-9]00|950)'" 0
+# 下記以外のタグは禁止。
+check "f '\s<(?!div|ul|li|form|label|input|textarea|select|option|a|button|img|span|svg|=|[A-Z]|\s|>|/)' --pcre2 -g '*.tsx'" 0
+
+echo '---------- TypeScript --------------------------------------------------'
+# type
+check "f 'type .* = \{.*\}'" 0 # 改行する。
+check "f '[rR]eadonly'" 0
+check "f '\b(Array|Boolean|Number|Object|String|Symbol)\b'" 0
+f '\b(Parameters|ReturnType)\b'
+f '\bnever\b' --pcre2 # unknownではない？
+# statement
+check "f 'const \w+: (?!FC|Next|Viewport).*' --pcre2" 0
+check "f 'const \{.*\}: \w+ ='" 0
+check "f 'export (type )?\{'" 0
+check "f 'import type'" 0
+check "f 'public '" 0
+check "f '\?:' -g '!*.tsx'" 0
+# other
+check "f '\bev'" 0 # eを使用する。
+check "f '\w\[\d+\]'" 0 # .atを使用する。
+check "f '\{ \w+: \w+, ' -g '!*.test.ts' -g '!*.test.tsx'" 0 # 2要素以上のオブジェクトは改行する。
+check "f '\{ \w+, \w+: ' -g '!*.test.ts' -g '!*.test.tsx'" 0 # 2要素以上のオブジェクトは改行する。
+
+echo '---------- as const付与漏れ ------------------------------------------------'
+f 'const (?!config|dict|errors).* = \{' --pcre2
+
+echo '---------- Vitest ------------------------------------------------------'
+# toStrictEqual以外は禁止。
+check "f 'toBe' -g '*.test.ts' -g '*.test.tsx'" 0
+
+echo '---------- React -------------------------------------------------------'
+check "f 'cloneElement'" 0
+check "f 'ComponentPropsWith'" 0
+check "f 'Dispatch'" 0
+check "f 'flushSync'" 0
+check "f 'JSX.Element'" 0
+check "f 'React\.'" 0
+
+echo '---------- Next.js -----------------------------------------------------'
+# MetadataはPageでのみ使用する。（RootLayoutを除く。）
+check "f 'Metadata' -g '!*page.tsx' -g '!app/\[lang\]/layout.tsx'" 0
+
+echo '---------- next/image --------------------------------------------------'
+check "f 'next/image' -g '*.tsx'" 0
+
+echo '---------- next/link ---------------------------------------------------'
+# https://zenn.dev/dozo13189/articles/72a8f087b382cf
+check "f '<Link (?!.*prefetch)' --pcre2 -g '*.tsx'" 0
+check "f '<Link (?!.*scroll)'   --pcre2 -g '*.tsx'" 0
+f '<Link$' -g '*.tsx'
+
+echo '---------- next/router -------------------------------------------------'
+check "f 'next/router' -g '*.tsx'" 0
+
+echo '---------- server-only付与漏れ ---------------------------------------------'
+# 原則、ファイル全てにserver-onlyをimportする。
+# 例外
+# - クライアントコンポーネントの場合
+# - 特定のファイル名の場合
+f "^'use client';" -g '*.tsx' -l | sort > lint-tmp-1.txt
+f "^import 'server-only';" \
+  -g 'app/**' -g 'lib/**' \
+  -g '!app/\[lang\]/globals.css' \
+  -g '!lib/supabase/' \
+  -g '!*hook.ts' -g '!*hook.tsx' \
+  -g '!*index.ts' -g '!*index.tsx' \
+  -g '!*.test.ts' -g '!*.test.tsx' \
+  --files-without-match | sort > lint-tmp-2.txt
+comm -3 lint-tmp-1.txt lint-tmp-2.txt
+rm -f   lint-tmp-1.txt lint-tmp-2.txt
+
+echo '---------- use client付与漏れ ----------------------------------------------'
+f "^'use client';" -g '*.tsx' -l | sort > lint-tmp-1.txt
+f '\b(on|use)[A-Z]' -g '*.tsx' -l | sort > lint-tmp-2.txt
+comm -3 lint-tmp-1.txt lint-tmp-2.txt
+rm -f   lint-tmp-1.txt lint-tmp-2.txt
+
+echo '---------- use server付与漏れ ----------------------------------------------'
+f "^'use server';" -l            | sort > lint-tmp-1.txt
+find app/ -type f -name 'function.ts' | sed 's|^./||' > lint-tmp-2.txt
+find lib/ -type f -name 'function.ts' | sed 's|^./||' >> lint-tmp-2.txt
+comm -3 lint-tmp-1.txt lint-tmp-2.txt
+rm -f   lint-tmp-1.txt lint-tmp-2.txt
