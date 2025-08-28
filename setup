@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -eu
+
+$HOME/dotfiles/home/setup
+$HOME/dotfiles/brew/setup
