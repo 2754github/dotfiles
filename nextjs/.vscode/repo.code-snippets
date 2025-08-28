@@ -1,0 +1,45 @@
+{
+  "🌈 component": {
+    "scope": "typescriptreact",
+    "prefix": "component",
+    "body": [
+      "import { type FC } from 'react';",
+      "import 'server-only';",
+      "",
+      "type Props = unknown;",
+      "",
+      "export const $1: FC<Props> = () => {",
+      "  return null;",
+      "};",
+      "",
+    ],
+  },
+  "🌈 page": {
+    "scope": "typescriptreact",
+    "prefix": "page",
+    "body": [
+      "import { type FC } from 'react';",
+      "import 'server-only';",
+      "import { toLang } from '../../lib/lang';",
+      "",
+      "const Page: FC<PageProps<'$1'>> = async ({ params }) => {",
+      "  const { lang: x } = await params;",
+      "  const lang = toLang(x);",
+      "",
+      "  return <>{lang}</>;",
+      "};",
+      "",
+      "export default Page;",
+      "",
+    ],
+  },
+  "🌈 sleep": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "sleep",
+    "body": [
+      "await new Promise((resolve) => {",
+      "  setTimeout(resolve, 1000);",
+      "});",
+    ],
+  },
+}
