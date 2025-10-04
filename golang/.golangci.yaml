@@ -1,0 +1,18 @@
+version: '2'
+linters:
+  default: all
+  exclusions:
+    paths:
+      - _test.go
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+    - golines
+    - swaggo
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/@@@org/@@@repo

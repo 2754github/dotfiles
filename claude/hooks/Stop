@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+afplay $HOME/dotfiles/claude/hooks/終わりました！.mp3

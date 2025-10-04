@@ -1,0 +1,16 @@
+{
+  "go.gopath": "@@@gopath",
+  "go.goroot": "@@@goroot",
+  // https://github.com/golang/vscode-go/blob/master/docs/settings.md
+  "gopls": {
+    "formatting.local": "github.com/@@@org/@@@repo"
+  },
+  // https://golangci-lint.run/docs/welcome/integrations/#visual-studio-code
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": ["--path-mode=abs", "--fast-only"],
+  "go.formatTool": "custom",
+  "go.alternateTools": {
+    "customFormatter": "golangci-lint"
+  },
+  "go.formatFlags": ["fmt", "--stdin"]
+}

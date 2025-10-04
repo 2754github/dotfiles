@@ -1,0 +1,52 @@
+#!/bin/sh
+
+alias f="rg -. \
+  -g '!.git/' \
+  -g '!*.gen.go' \
+  -g '!*.lock' \
+  -g '!*.snap' \
+  -g '!*.svg' \
+  -g '!go.sum' \
+  -g '!package-lock.json' \
+  -g '!pnpm-lock.yaml' \
+"
+
+check () {
+  if [[ $(eval $1 | wc -l) -ne 0 ]]; then
+    echo "\n${BASH_LINENO[0]}: $1"
+    eval $1
+  fi
+}
+
+# fmt.Errorf以外のfmtは禁止。
+check "f 'fmt\.[^E]' -g '!*_test.go'"
+
+# 値レシーバは禁止。
+check "f 'func \([^)]+ [^*]'"
+
+# 1行importは禁止。
+check "f 'import \"'"
+
+# パッケージ内でのログ出力は禁止。
+check "f 'log\.' -g 'internal/pkg/**'"
+
+# panicは禁止。
+check "f 'panic\('"
+
+# 余分なかっこは禁止。
+check "f '\(\([^)]*\)\)'"
+
+# IIFEの関数は()で囲む。
+check "f '\}\('"
+
+# logは禁止。（log/slogを使用する。）
+check "f '\"log\"'"
+
+# reflectは禁止。（テストではgithub.com/google/go-cmp/cmpを使用する。）
+check "f '\"reflect\"'"
+
+# If with a short statementは禁止。
+check "f '; ' -g '!*_test.go'"
+
+# //以外のコメントは禁止。
+check "f '/\*'"

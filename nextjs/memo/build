@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+rm -fr .next
+rm -fr build
+rm -fr out
+# rm -fr node_modules
+# npm ci
+npm run gen
+npm run lint
+npm run test
+npm run build
+afplay $HOME/dotfiles/claude/hooks/終わりました！.mp3
