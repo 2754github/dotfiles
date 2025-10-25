@@ -1,0 +1,44 @@
+{
+  "🌈log": {
+    "prefix": "log",
+    "body": ["console.log(`🚨 ${JSON.stringify($1, null, 2)}`);"]
+  },
+  "🌈sleep": {
+    "prefix": "sleep",
+    "body": [
+      "await new Promise((resolve) => {",
+      "  setTimeout(resolve, 1000);",
+      "});"
+    ]
+  },
+  "🌈component": {
+    "prefix": "component",
+    "body": [
+      "import 'server-only';",
+      "",
+      "type Props = unknown;",
+      "",
+      "export const $TM_FILENAME_BASE = ({}: Props): ReactNode => {",
+      "  return null;",
+      "};",
+      ""
+    ]
+  },
+  "🌈page": {
+    "prefix": "page",
+    "body": [
+      "import 'server-only';",
+      "import { toLang } from '../../lib/lang';",
+      "",
+      "const Page = async ({ params }: PageProps<'$1'>): ReactNode => {",
+      "  const { lang: x } = await params;",
+      "  const lang = toLang(x);",
+      "",
+      "  return <>{lang}</>;",
+      "};",
+      "",
+      "export default Page;",
+      ""
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+trap '[[ $? -eq 0 ]] && echo "✅$0"' EXIT
+
+cp -r "$HOME/Library/Application Support/Code/User/snippets" $HOME/dotfiles/vscode
+cp "$HOME/Library/Application Support/Code/User/keybindings.json" $HOME/dotfiles/vscode/keybindings.json
+cp "$HOME/Library/Application Support/Code/User/settings.json" $HOME/dotfiles/vscode/settings.json

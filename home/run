@@ -1,0 +1,69 @@
+#!/bin/bash
+set -eu
+trap '[[ $? -eq 0 ]] && echo "✅$0" || echo "❌$0"' EXIT
+
+command=${1:-undefined}
+
+commands=(doctor setup)
+if [[ ! " ${commands[@]} " =~ " $command " ]]; then
+  echo "⚠️ [${commands[@]}] is required"
+  exit 1
+fi
+
+error=0
+run () {
+  if [[ $command == 'setup' ]]; then
+    echo "🚀 $0:${BASH_LINENO[0]} $1"
+    eval $1 || exit $?
+  else
+    echo "⚠️ $0:${BASH_LINENO[0]} $1"
+    error=1
+  fi
+}
+
+mkdir -p $HOME/.config/git
+mkdir -p $HOME/.ssh
+
+files=(
+  .config/git/config
+  .config/git/ignore
+  .config/starship.toml
+  .ssh/config
+  .npmrc
+  .zshrc
+)
+for file in ${files[@]}; do
+  if [[ $(readlink $HOME/$file) != $HOME/dotfiles/home/$file ]]; then
+    echo $file
+    run 'ln -fs $HOME/dotfiles/home/$file $HOME/$file'
+  fi
+done
+
+if [[ ! $(cat $HOME/.zprofile) =~ 'SHELL_SESSIONS_DISABLE=1' ]]; then
+  # https://superuser.com/questions/1610587/disable-zsh-session-folder-completely
+  run 'rm -fr $HOME/.zsh_sessions && echo '\''\nexport SHELL_SESSIONS_DISABLE=1'\'' >> $HOME/.zprofile'
+fi
+
+if [[ ! $(command -v npm) ]]; then
+  run 'mise use -g node@latest'
+  # https://mise.jdx.dev/getting-started.html#activate-mise
+  run 'eval "$(mise activate bash)"'
+fi
+
+if [[ ! $(command -v prettier) ]]; then
+  run 'npm install -g prettier'
+fi
+
+if [[ ! $(command -v claude) ]]; then
+  run 'npm install -g @anthropic-ai/claude-code'
+fi
+
+if [[ ! $(command -v ccusage) ]]; then
+  run 'npm install -g ccusage'
+fi
+
+if [[ ! $(command -v $HOME/.local/bin/uvx) ]]; then
+  run 'curl -LsSf https://astral.sh/uv/install.sh | sh'
+fi
+
+exit $error

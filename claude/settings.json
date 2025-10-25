@@ -1,0 +1,104 @@
+{
+  "cleanupPeriodDays": 35,
+  "env": {
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "DISABLE_AUTOUPDATER": "1",
+    "DISABLE_BUG_COMMAND": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_TELEMETRY": "1",
+    "CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "DISABLE_MICROCOMPACT": "1"
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(gh issue view:*)",
+      "Bash(gh pr create -d -a @me:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr view:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(go mod tidy)",
+      "Bash(go test:*)",
+      "Bash(go build:*)",
+      "Bash(npm run gen:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run test:*)",
+      "Bash(npm run build:*)",
+      "WebFetch",
+      "WebSearch",
+      "mcp__ide__getDiagnostics",
+      "mcp__chrome-devtools__click",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__performance_start_trace",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__context7__get-library-docs",
+      "mcp__context7__resolve-library-id",
+      "mcp__serena__activate_project",
+      "mcp__serena__check_onboarding_performed",
+      "mcp__serena__find_file",
+      "mcp__serena__find_referencing_symbols",
+      "mcp__serena__find_symbol",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__insert_after_symbol",
+      "mcp__serena__list_dir",
+      "mcp__serena__replace_symbol_body",
+      "mcp__serena__search_for_pattern",
+      "mcp__serena__write_memory"
+    ],
+    "deny": [
+      "Bash(chmod:*)",
+      "Bash(rm:*)",
+      "Bash(shred:*)",
+      "Bash(sudo:*)",
+      "Bash(curl:*)",
+      "Bash(nc:*)",
+      "Bash(wget:*)",
+      "Bash(git clone:*)",
+      "Bash(git pull:*)",
+      "Bash(git push:*)",
+      "Bash(npx:*)",
+      "Read(.env*)",
+      "Read(~/.ssh/**)",
+      "Read(github)",
+      "Read(id_dsa)",
+      "Read(id_ecdsa)",
+      "Read(id_ed25519)",
+      "Read(id_rsa)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "model": "opus",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/dotfiles/claude/hooks/Notification.mp3"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/dotfiles/claude/hooks/Stop.mp3"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/dotfiles/claude/statusLine"
+  },
+  "spinnerTipsEnabled": false,
+  "alwaysThinkingEnabled": false,
+  "disableBypassPermissionsMode": "disable"
+}

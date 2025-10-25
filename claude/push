@@ -1,0 +1,44 @@
+#!/bin/bash
+set -eu
+trap '[[ $? -eq 0 ]] && echo "✅$0"' EXIT
+
+cp -r $HOME/dotfiles/claude/commands $HOME/.claude
+cp $HOME/dotfiles/claude/character.md $HOME/.claude/character.md
+cp $HOME/dotfiles/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
+cp $HOME/dotfiles/claude/settings.json $HOME/.claude/settings.json
+
+jq '
+  .autoCompactEnabled = false
+  | .autoConnectIde = true
+  | .autoInstallIdeExtension = false
+  | .hasCompletedOnboarding = true
+  | .shiftEnterKeyBindingInstalled = true
+  | .mcpServers = {
+      "chrome-devtools": {
+        "command": "npx",
+        "args": ["-y", "chrome-devtools-mcp@latest"]
+      },
+      "context7": {
+        "command": "npx",
+        "args": ["-y", "@upstash/context7-mcp@latest"]
+      },
+      "next-devtools": {
+        "command": "npx",
+        "args": ["-y", "next-devtools-mcp@latest"]
+      },
+      "serena": {
+        "command": "/Users/fkesys/.local/bin/uvx",
+        "args": [
+          "--from",
+          "git+https://github.com/oraios/serena",
+          "serena",
+          "start-mcp-server",
+          "--context",
+          "ide-assistant",
+          "--enable-web-dashboard",
+          "false"
+        ]
+      }
+    }
+' $HOME/.claude.json > claude.json.tmp
+mv claude.json.tmp $HOME/.claude.json

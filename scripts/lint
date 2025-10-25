@@ -1,0 +1,111 @@
+#!/bin/sh
+
+alias f="rg -. \
+  -g '!.git/' \
+  -g '!*.gen.go' \
+  -g '!*.lock' \
+  -g '!*.snap' \
+  -g '!*.svg' \
+  -g '!go.sum' \
+  -g '!package-lock.json' \
+  -g '!pnpm-lock.yaml' \
+  -g '!lint' \
+"
+
+check () {
+  if [[ $(eval $1 | wc -l) -ne ${2:-0} ]]; then
+    echo "\n⚠️ $0:${BASH_LINENO[0]} $1"
+    eval $1
+  fi
+}
+
+# casksを使用する。
+check "f 'cask[^s]' -g '!brew/Brewfile'"
+
+# formulaeを使用する。
+check "f 'formula[^e]'"
+
+# `if [[` を使用する。
+check "f 'if [^\[]' -g '!home/.ssh/config'"
+check "f '\s+if [^\[]' -g '!home/.ssh/config'"
+check "f 'if \[[^\[]'"
+
+# sedは `|` で分割する。
+check "f 'sed .+s[^|]'"
+
+# `command -v` を使用する。
+check "f 'which'"
+
+# $HOMEを使用する。
+check "f '~/'" 9
+
+# `#!/bin/bash` を使用する。
+check "f '#!/bin/sh'"
+
+# `;` が先頭になるように改行する。
+check "f '[^;];$'"
+
+# OFF, ONを使用する。
+check "f '\b(オフ|オン)\b'" 4
+
+# 半角スペースを使用する。
+check "f '\t'"
+
+# ディレクトリを示す末尾の `/` は禁止。
+check "f '\w/$' -g '!home/.config/git/ignore'" 2
+check "f '\w/ '"
+
+# シングルクォートを使用する。
+check "f '\`[^\`]+\`' -g '!*.md'" 6
+check "f '\"[^$\|'\''\"]+\"' -g '!*.json' -g '!brew/Brewfile' -g '!claude/push'" 17
+
+# デフォルト値を定義する。
+check "f '\\\$[1-9]' -g '!*.json'" 21
+
+# `${~}` はデフォルト値と配列でのみ使用できる。
+check "f '\\\$\{[^@:]+\}' -g '!*.json'" 4
+
+# `|` が先頭になるように改行する。
+check "f '\|$'"
+
+# jqの最終引数を使用する。
+check "f '\| jq'" 4
+
+# 絶対パスを使用する。
+check "f '\./' -g '!vscode/snippets/'"
+
+# ショートハンドオプションはまとめる。
+check "f ' \-\w \-\w '" 4
+
+# 多用は控える。
+check "f '\s\-+[\w-]+='" 6
+check "f '\S\s#'" 7
+check "f '\S\s\s+' -g '!vscode/snippets/'" 11
+check "f '\S\s//'" 1
+check "f '\{ \"'" 6
+check "f '\\\\s'" 1
+check "f '\"\\\$'" 10
+
+# ショートハンドオプションを使用する。
+non_shorthand_1=$(f '\-\-\w' -g '!claude/push' -g '!home/.config/git/config' -g '!scripts/Dockerfile' | wc -l)
+non_shorthand_2=$((
+    f 'brew .*\-\-\w' \
+  ; f 'docker .*\-\-\w' \
+  ; f 'eza .*\-\-\w' \
+  ; f 'FZF.*\-\-\w' \
+  ; f '(git|gb|glo) .*\-\-\w' \
+  ; f 'npm .*\-\-\w' \
+  ; f 'grep .*\-\-\w' \
+) | wc -l)
+if [[ $non_shorthand_1 != $non_shorthand_2 ]]; then
+  echo "\nshorthand count mismatch: $non_shorthand_1 != $non_shorthand_2"
+  exit 1
+fi
+
+check "f 'brew .*\-\-\w' | f -v '\--(casks|file|formulae|installed|json|overwrite)'"
+check "f 'docker .*\-\-\w' | f -v '\--(rm|volumes)'"
+check "f 'eza .*\-\-\w' | f -v '\--(icons|time-style)'"
+check "f 'FZF.*\-\-\w' | f -v '\--(height|layout)'"
+check "f '(git|gb|glo) .*\-\-\w' | f -v '\--(allow-empty|amend|committer-date-is-author-date|date|diff-filter|exclude-standard|fixup|force-with-lease|hard|name-status|no-edit|oneline|pretty|reverse|show-current)'"
+check "f 'grep .*\-\-\w' | f -v '\--(binary-files)'"
+check "f 'npm .*\-\-\w' | f -v '\--(depth|json)'"
