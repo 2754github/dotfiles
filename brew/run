@@ -1,0 +1,41 @@
+#!/bin/bash
+set -eu
+trap '[[ $? -eq 0 ]] && echo "✅$0" || echo "❌$0"' EXIT
+
+command=${1:-undefined}
+
+commands=(doctor setup)
+if [[ ! " ${commands[@]} " =~ " $command " ]]; then
+  echo "⚠️ [${commands[@]}] is required"
+  exit 1
+fi
+
+error=0
+run () {
+  if [[ $command == 'setup' ]]; then
+    echo "🚀$0:${BASH_LINENO[0]} $1"
+    eval $1 || exit $?
+  else
+    echo "⚠️ $0:${BASH_LINENO[0]} $1"
+    error=1
+  fi
+}
+
+if [[ ! $(command -v brew) ]]; then
+  # https://brew.sh/
+  run '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+  run '(echo; echo '\''eval "$(/opt/homebrew/bin/brew shellenv)"'\'') >> $HOME/.zprofile'
+  run 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+fi
+
+if [[ ! $(command -v mise) ]]; then
+  # https://github.com/Homebrew/brew/blob/master/docs/Manpage.md?plain=1#L222-L225
+  run 'brew bundle --file=$HOME/dotfiles/brew/Brewfile'
+fi
+
+if [[ $(git -v) == *Apple* ]]; then
+  # https://qiita.com/s_Pure/items/9b90155d8e3e545c0733
+  run 'brew link --overwrite git'
+fi
+
+exit $error

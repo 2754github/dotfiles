@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eu
+trap '[[ $? -eq 0 ]] && echo "✅$0" || echo "❌$0"' EXIT
+
+$HOME/dotfiles/brew/run setup
+$HOME/dotfiles/home/run setup

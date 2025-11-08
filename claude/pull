@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+trap '[[ $? -eq 0 ]] && echo "✅$0"' EXIT
+
+cp -r $HOME/.claude/commands $HOME/dotfiles/claude
+cp $HOME/.claude/character.md $HOME/dotfiles/claude/character.md
+cp $HOME/.claude/CLAUDE.md $HOME/dotfiles/claude/CLAUDE.md
+cp $HOME/.claude/settings.json $HOME/dotfiles/claude/settings.json
+
+jq '.mcpServers' $HOME/.claude.json

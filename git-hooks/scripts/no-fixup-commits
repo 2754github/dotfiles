@@ -1,0 +1,8 @@
+#!/bin/bash
+set -eu
+trap '[[ $? -eq 0 ]] && echo "✅$0"' EXIT
+
+if [[ $(git log --oneline -100) =~ 'fixup!' ]]; then
+  echo '❌fixup commits remain'
+  exit 1
+fi
