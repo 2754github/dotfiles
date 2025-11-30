@@ -1,0 +1,9 @@
+.memo/
+node_modules/
+vendor/
+
+.DS_Store
+.env*
+!.env.sample
+
+.serena/

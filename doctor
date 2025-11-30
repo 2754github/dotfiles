@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eou pipefail
+trap '[[ $? -eq 0 ]] && echo "✅$0" || echo "❌$0"' EXIT
+
+$HOME/dotfiles/brew/run doctor
+$HOME/dotfiles/home/run doctor

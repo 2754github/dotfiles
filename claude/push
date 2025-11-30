@@ -1,0 +1,18 @@
+#!/bin/bash
+set -eou pipefail
+
+rm -fr $HOME/.claude/commands && cp -r $HOME/dotfiles/claude/commands $HOME/.claude/commands
+cp $HOME/dotfiles/claude/character.md $HOME/.claude/character.md
+cp $HOME/dotfiles/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
+cp $HOME/dotfiles/claude/settings.json $HOME/.claude/settings.json
+
+jq '
+  .autoCompactEnabled = false
+| .autoConnectIde = true
+| .autoInstallIdeExtension = false
+| .autoUpdaterStatus = "disabled"
+| .hasCompletedOnboarding = true
+| .shiftEnterKeyBindingInstalled = true
+| .theme = "light"
+' $HOME/.claude.json > claude.json.tmp
+mv claude.json.tmp $HOME/.claude.json

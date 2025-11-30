@@ -1,0 +1,16 @@
+#!/bin/bash
+set -eou pipefail
+
+afplay $HOME/dotfiles/claude/hooks/$1.mp3
+
+curl $SLACK_WEBHOOK_URL \
+-X POST \
+-H 'Content-Type: application/json' \
+-d @- <<EOS
+{
+  "channel": "#ai",
+  "icon_emoji": "robot_face",
+  "username": "Claude Code",
+  "text": "$1（$(basename $PWD)）"
+}
+EOS

@@ -1,0 +1,9 @@
+#!/bin/bash
+set -eou pipefail
+
+VSC="$HOME/Library/Application Support/Code/User"
+rm -fr $HOME/dotfiles/vscode/snippets && cp -r "$VSC/snippets" $HOME/dotfiles/vscode/snippets
+cp "$VSC/keybindings.json" $HOME/dotfiles/vscode/keybindings.json
+cp "$VSC/settings.json" $HOME/dotfiles/vscode/settings.json
+
+code --list-extensions > vscode/extensions.txt

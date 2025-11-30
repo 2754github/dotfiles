@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eou pipefail
+
+current=$(git branch --show-current)
+branches=(develop main master)
+if [[ " ${branches[@]} " =~ " $current " ]]; then
+  echo "❌do not push to [${branches[@]}]"
+  exit 1
+fi
+
+echo "✅$0"
