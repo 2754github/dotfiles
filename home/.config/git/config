@@ -1,0 +1,74 @@
+# https://git-scm.com/docs/git-config
+# https://blog.gitbutler.com/how-git-core-devs-configure-git
+
+[branch]
+  sort = -committerdate
+
+[core]
+  fsmonitor = true
+  hooksPath = ~/dotfiles/home/.config/git/hooks
+  ignoreCase = false
+  pager = delta # https://github.com/dandavison/delta#get-started
+  quotePath = false
+  untrackedCache = true
+
+[diff]
+  algorithm = histogram
+  colorMoved = dimmed-zebra
+  mnemonicPrefix = true
+
+[fetch]
+  prune = true
+  pruneTags = true
+
+[help]
+  autoCorrect = prompt
+
+[init]
+  defaultBranch = main
+
+[interactive]
+  diffFilter = delta --color-only # https://github.com/dandavison/delta#get-started
+
+[merge]
+  conflictStyle = zdiff3 # https://github.com/dandavison/delta#get-started
+
+[push]
+  autoSetupRemote = true
+  default = current
+
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
+
+[rerere]
+  autoUpdate = true
+  enabled = true
+
+[status]
+  showUntrackedFiles = all
+
+[user]
+  email = fkesys@gmail.com
+  name = 2754github
+
+# https://github.com/dandavison/delta/blob/main/manual/src/delta-configs-used-in-screenshots.md
+[delta]
+  features = line-numbers decorations
+  # features = side-by-side line-numbers decorations
+  syntax-theme = Dracula
+  plus-style = syntax "#003800"
+  minus-style = syntax "#3f0001"
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+  hunk-header-decoration-style = cyan box ul
+
+[delta "line-numbers"]
+  line-numbers-left-style = cyan
+  line-numbers-right-style = cyan
+  line-numbers-minus-style = 124
+  line-numbers-plus-style = 28
