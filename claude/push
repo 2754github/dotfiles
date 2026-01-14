@@ -1,0 +1,27 @@
+#!/bin/bash
+set -euo pipefail
+
+HERE=$(realpath $(dirname $0))
+CC=$HOME/.claude
+
+rm -fr $CC/commands && cp -r $HERE/commands $CC/commands
+cp $HERE/CLAUDE.md $CC/CLAUDE.md
+cp $HERE/settings.json $CC/settings.json
+
+jq '
+  .autoCompactEnabled = false
+| .autoConnectIde = true
+| .autoInstallIdeExtension = false
+| .autoUpdaterStatus = "disabled"
+| .mcpServers = {}
+| .shiftEnterKeyBindingInstalled = true
+| .terminalProgressBarEnabled = false
+| .theme = "light"
+' $HOME/.claude.json > claude.json.tmp
+mv claude.json.tmp $HOME/.claude.json
+
+claude plugin install code-review
+claude plugin install code-simplifier
+claude plugin install feature-dev
+claude plugin install pr-review-toolkit
+claude plugin install security-guidance

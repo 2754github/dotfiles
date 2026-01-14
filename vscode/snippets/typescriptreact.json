@@ -1,0 +1,96 @@
+{
+  "🌈log": {
+    "prefix": "log",
+    "body": ["console.log(`🚨 ${JSON.stringify($1, null, 2)}`);"]
+  },
+  "🌈sleep": {
+    "prefix": "sleep",
+    "body": [
+      "await new Promise((resolve) => {",
+      "  setTimeout(resolve, 1000);",
+      "});"
+    ]
+  },
+  "🌈component:client": {
+    "prefix": "component:client",
+    "body": [
+      "\"use client\";",
+      "",
+      "import { type FC } from \"react\";",
+      "",
+      "type Props = unknown;",
+      "",
+      "export const $TM_FILENAME_BASE: FC<Props> = () => {",
+      "  return null;",
+      "};",
+      ""
+    ]
+  },
+  "🌈component:server": {
+    "prefix": "component:server",
+    "body": [
+      "import { type FC } from \"react\";",
+      "import \"server-only\";",
+      "",
+      "type Props = unknown;",
+      "",
+      "export const $TM_FILENAME_BASE: FC<Props> = () => {",
+      "  return null;",
+      "};",
+      ""
+    ]
+  },
+  "🌈page:client": {
+    "prefix": "page:client",
+    "body": [
+      "\"use client\";",
+      "",
+      "import { type FC, use } from \"react\";",
+      "",
+      "const Page: FC<PageProps<\"$1\">> = ({ params }) => {",
+      "  const { lang: x } = use(params);",
+      "  const lang = toLang(x);",
+      "",
+      "  return <>{dict[lang].hello}</>;",
+      "};",
+      "",
+      "export default Page;",
+      "",
+      "const dict = {",
+      "  en: {",
+      "    hello: \"Hello!\",",
+      "  },",
+      "  ja: {",
+      "    hello: \"こんにちは！\",",
+      "  },",
+      "} as const satisfies Dict;",
+      ""
+    ]
+  },
+  "🌈page:server": {
+    "prefix": "page:server",
+    "body": [
+      "import { type FC } from \"react\";",
+      "import \"server-only\";",
+      "",
+      "const Page: FC<PageProps<\"$1\">> = async ({ params }) => {",
+      "  const { lang: x } = await params;",
+      "  const lang = toLang(x);",
+      "",
+      "  return <>{dict[lang].hello}</>;",
+      "};",
+      "",
+      "export default Page;",
+      "",
+      "const dict = {",
+      "  en: {",
+      "    hello: \"Hello!\",",
+      "  },",
+      "  ja: {",
+      "    hello: \"こんにちは！\",",
+      "  },",
+      "} as const satisfies Dict;",
+      ""
+    ]
+  }
+}
