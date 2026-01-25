@@ -1,0 +1,230 @@
+{
+  // 1.108.0
+  // General ------------------------------------------------------------------
+  "breadcrumbs.enabled": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.accessibilitySupport": "off",
+  "editor.codeLens": false,
+  "editor.fontFamily": "Hack Nerd Font Mono",
+  "editor.fontSize": 16,
+  "editor.guides.bracketPairs": "active",
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "all",
+  "editor.rulers": [79],
+  "editor.snippetSuggestions": "top",
+  "editor.tabSize": 2,
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    ".env.sample": ".env*",
+    "components.json": "postcss.config.mjs",
+    "go.mod": "go.sum",
+    "next.config.ts": "next-env.d.ts",
+    "package.json": ".npmrc, package-lock.json, pnpm-lock.yaml, yarn.lock",
+    "README.md": ".prettier*, eslint.config.*, knip.json, tsconfig.*, globals.d.ts",
+    "vitest.config.ts": "vitest.*.tsx",
+    "wrangler.jsonc": "worker-configuration.d.ts",
+  },
+  "extensions.ignoreRecommendations": true,
+  "files.watcherExclude": {
+    "**/.next/**": true,
+    "**/.wrangler/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
+    "**/go/**": true,
+    "**/node_modules/**": true,
+    "**/out/**": true,
+    "**/vendor/**": true,
+  },
+  "update.mode": "manual",
+  "update.showReleaseNotes": false,
+  "window.commandCenter": false,
+  "window.confirmBeforeClose": "keyboardOnly",
+  "window.newWindowDimensions": "maximized",
+  "window.zoomLevel": 0,
+  "workbench.colorCustomizations": {
+    "editorLineNumber.activeForeground": "#6aaeff",
+    "editorLineNumber.foreground": "#c4dfff",
+    "editorStickyScrollHover.background": "#6aaeff",
+    "editorStickyScroll.background": "#c4dfff",
+    "editor.lineHighlightBackground": "#c4dfff",
+    "editor.selectionBackground": "#ffaa6a",
+    "tab.activeBackground": "#ffdbc1",
+  },
+  "workbench.colorTheme": "Quiet Light",
+  "workbench.editor.customLabels.patterns": {
+    "**/app/**/error.tsx": "❌ /${dirname}",
+    "**/app/**/function.tsx": "ƒ /${dirname}",
+    "**/app/**/layout.tsx": "🖼️ /${dirname}",
+    "**/app/**/page.tsx": "🅿️ /${dirname}",
+    "**/*.test.ts": "🧪 ${dirname}/${filename}",
+    "**/*.test.tsx": "🧪 ${dirname}/${filename}",
+    "**/*.tsx": "<${filename} />",
+  },
+  "workbench.editor.empty.hint": "hidden",
+  "workbench.editor.wrapTabs": true,
+  "workbench.layoutControl.enabled": false,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "workbench.startupEditor": "none",
+  "workbench.tree.indent": 16,
+
+  // Terminal -----------------------------------------------------------------
+  // https://code.visualstudio.com/docs/terminal/profiles
+  "terminal.integrated.defaultProfile.osx": "host-zsh",
+  "terminal.integrated.fontFamily": "Hack Nerd Font Mono",
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.profiles.osx": {
+    "host-zsh": {
+      "path": "/bin/zsh",
+      "args": ["-l"],
+    },
+  },
+  "terminal.integrated.shellIntegration.enabled": false,
+  "terminal.integrated.stickyScroll.enabled": false,
+
+  // All languages ------------------------------------------------------------
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "explicit",
+    "source.organizeImports": "explicit",
+    "source.fixAll.eslint": "explicit",
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+
+  // JavaScript, TypeScript ---------------------------------------------------
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // https://zenn.dev/taichifukumoto/scraps/45be5ffdfa8457
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  // https://blog.covelline.com/entry/2020/11/11/135418
+  // https://creators.bengo4.com/entry/2025/08/29/113000
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Go -----------------------------------------------------------------------
+  "[go]": {
+    "editor.defaultFormatter": "golang.go",
+  },
+  // https://github.com/golang/vscode-go/blob/master/docs/settings.md
+  "go.editorContextMenuCommands": {
+    "addImport": false,
+    "generateTestForFile": false,
+    "generateTestForPackage": false,
+    "playground": false,
+    "testCoverage": false,
+    "testFile": false,
+    "testPackage": false,
+    "toggleTestFile": false,
+  },
+  "go.testFlags": ["-v"],
+  "go.toolsManagement.autoUpdate": true,
+
+  // JSON ---------------------------------------------------------------------
+  "json.schemas": [
+    {
+      "fileMatch": [".claude/settings.json", "claude/settings.json"],
+      "url": "https://json.schemastore.org/claude-code-settings.json",
+    },
+  ],
+
+  // Markdown -----------------------------------------------------------------
+  "[markdown]": {
+    "editor.quickSuggestions": { "other": "off" },
+    "files.trimTrailingWhitespace": false,
+  },
+  "markdown.extension.orderedList.marker": "one",
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.preview.doubleClickToSwitchToEditor": false,
+  "markdown.preview.scrollEditorWithPreview": false,
+  "markdown.preview.scrollPreviewWithEditor": false,
+
+  // YAML ---------------------------------------------------------------------
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.quickSuggestions": { "other": "off" },
+  },
+  "redhat.telemetry.enabled": false,
+
+  // Extensions ---------------------------------------------------------------
+  // Code Spell Checker
+  "cSpell.showCommandsInEditorContextMenu": false,
+  "cSpell.showSuggestionsLinkInEditorContextMenu": false,
+  "cSpell.words": [
+    // ...
+  ],
+
+  // Draw.io Integration
+  "workbench.editorAssociations": {
+    "*.drawio.png": "hediet.vscode-drawio",
+  },
+
+  // Error Lens
+  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.messageTemplate": "$source($code): $message",
+
+  // GitHub Copilot Chat
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": false,
+    "plaintext": false,
+  },
+  // https://docs.github.com/ja/copilot/how-tos/configure-personal-settings/configure-in-ide?tool=vscode
+  "github.copilot.nextEditSuggestions.enabled": true,
+
+  // Partial Diff
+  "partialDiff.commandsOnContextMenu": {
+    "diffVisibleEditors": false,
+    "markSection1": false,
+    "markSection2AndTakeDiff": false,
+    "togglePreComparisonTextNormalizationRules": false,
+  },
+  "partialDiff.enableTelemetry": false,
+
+  // Tailwind CSS IntelliSense
+  "[html][javascriptreact][typescriptreact]": {
+    "editor.quickSuggestions": { "strings": "on" },
+  },
+
+  // Tailwind Fold
+  "tailwind-fold.autoFold": false, // Toggle by `ctrl + opt + A`.
+
+  // Todo Tree
+  "todo-tree.general.tags": ["NOTE", "TODO", "FIXME"],
+  "todo-tree.highlights.customHighlight": {
+    "NOTE": {
+      "foreground": "#0068b7",
+      "gutterIcon": true,
+      "icon": "info",
+      "iconColour": "#0068b7",
+    },
+    "TODO": {
+      "foreground": "#ffa500",
+      "gutterIcon": true,
+      "icon": "alert",
+      "iconColour": "#ffa500",
+    },
+    "FIXME": {
+      "foreground": "#ff0000",
+      "gutterIcon": true,
+      "icon": "x-circle",
+      "iconColour": "#ff0000",
+    },
+  },
+  "todo-tree.highlights.defaultHighlight": {
+    "fontWeight": "bold",
+    "type": "text",
+  },
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.)|^\\s*\\*)\\s*($TAGS)",
+
+  // textlint
+  "textlint.languages": ["markdown"],
+}

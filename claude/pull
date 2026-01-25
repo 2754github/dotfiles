@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+
+HERE=$(realpath $(dirname $0))
+CC=$HOME/.claude
+
+rm -fr $HERE/commands && cp -r $CC/commands $HERE/commands
+cp $CC/CLAUDE.md $HERE/CLAUDE.md
+cp $CC/settings.json $HERE/settings.json

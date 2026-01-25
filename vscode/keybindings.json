@@ -1,0 +1,39 @@
+[
+  {
+    "key": "alt+cmd+i",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.terminal.new",
+        {
+          "command": "workbench.action.terminal.sendSequence",
+          "args": { "text": "claude\n" }
+        },
+        "workbench.action.terminal.moveToEditor",
+        "workbench.action.moveEditorToRightGroup",
+        "workbench.action.focusRightGroup"
+      ]
+    }
+  },
+  {
+    "key": "cmd+x",
+    "command": "editor.action.insertSnippet",
+    "args": { "snippet": "~~${TM_SELECTED_TEXT}~~" },
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+,",
+    "command": "workbench.action.openSettingsJson"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "copyRelativeFilePath",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "\\\r\n" },
+    "when": "terminalFocus"
+  }
+]

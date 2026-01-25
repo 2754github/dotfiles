@@ -1,0 +1,99 @@
+{
+  "cleanupPeriodDays": 35,
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "DISABLE_AUTOUPDATER": "1",
+    "DISABLE_BUG_COMMAND": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_TELEMETRY": "1",
+    "CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "DISABLE_MICROCOMPACT": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(gh issue view:*)",
+      "Bash(gh pr create -d -a @me:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr view:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(chmod:*)",
+      "Bash(sudo:*)",
+      "Bash(curl:*)",
+      "Bash(nc:*)",
+      "Bash(wget:*)",
+      "Bash(gh repo:*)",
+      "Bash(git clone:*)",
+      "Bash(git pull:*)",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(git restore:*)",
+      "Read(~/.ssh/**)",
+      "Read(.env*)"
+    ],
+    "ask": [
+      "Bash(rm:*)"
+    ],
+    "defaultMode": "plan",
+    "disableBypassPermissionsMode": "disable"
+  },
+  "model": "opusplan",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/dotfiles/claude/hooks/Notification"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay $HOME/dotfiles/claude/hooks/Stop.mp3"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay $HOME/dotfiles/claude/hooks/SubagentStop.mp3"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/dotfiles/claude/statusLine"
+  },
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true
+  },
+  "language": "japanese",
+  "spinnerTipsEnabled": false,
+  "alwaysThinkingEnabled": true,
+  "plansDirectory": "./.claude/plans"
+}
