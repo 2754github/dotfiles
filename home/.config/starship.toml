@@ -1,0 +1,31 @@
+# https://starship.rs/config/
+
+[aws]
+disabled = true
+
+[[battery.display]]
+threshold = 20
+
+[directory]
+truncation_length = 100
+truncate_to_repo = false
+
+[docker_context]
+disabled = true
+
+[git_commit]
+only_detached = false
+
+[git_status]
+ahead = '↑$count/'
+behind = '↓$count/'
+diverged = '×/'
+untracked = 'U/'
+stashed = 'S/'
+modified = 'M/'
+staged = '+/'
+renamed = 'R/'
+deleted = 'D/'
+
+[time]
+disabled = false

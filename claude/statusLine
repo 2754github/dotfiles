@@ -1,0 +1,54 @@
+#!/bin/bash
+set -euo pipefail
+
+# General ---------------------------------------------------------------------
+now=$(date '+%Y-%m-%d %H:%M:%S（%Z）')
+echo "🕒$now"
+
+repo=$(basename $PWD)
+branch=$(git branch --show-current 2>/dev/null)
+echo "📂$repo 🪾 ${branch:-N/A}"
+
+if [[ -t 0 ]]; then
+  input='{"model":{"display_name":"N/A"},"context_window":{"used_percentage":0}}'
+else
+  input=$(cat)
+fi
+model=$(echo "$input" | jq -r '.model.display_name')
+ctx=$(echo "$input" | jq -r '.context_window.used_percentage')
+
+cost='N/A'
+if [[ $(command -v npx) ]]; then
+  # https://app.link.com/purchases
+  if [[ $(date +%-d) -lt 6 ]]; then
+    since=$(date -v-1m +%Y%m06)
+    until=$(date +%Y%m06)
+  else
+    since=$(date +%Y%m06)
+    until=$(date -v+1m +%Y%m06)
+  fi
+  cost=$(npx ccusage -j -s $since -u $until | jq -r '"\(.totals.totalCost * 100 | round / 100)（USD）"')
+fi
+
+echo "🤖$model 📊$ctx% 💰$cost"
+
+# OUTDATED --------------------------------------------------------------------
+echo '⚠️ OUTDATED'
+
+brew_formulae_outdated=$(
+  brew info --installed --json=v2 | jq -r '
+    .formulae
+    | map(select((.outdated) and (.installed | any(.installed_on_request))) | .name)
+    | join(", ")
+  '
+)
+if [[ -n $brew_formulae_outdated ]]; then
+  echo "├─🍺formulae: $brew_formulae_outdated"
+fi
+
+brew_casks_outdated=$(
+  brew outdated --casks -g --json=v2 | jq -r '.casks | map(.name) | join(", ")'
+)
+if [[ -n $brew_casks_outdated ]]; then
+  echo "├─🍺casks:    $brew_casks_outdated"
+fi

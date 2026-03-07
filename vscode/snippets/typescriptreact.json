@@ -1,0 +1,81 @@
+{
+  "🌈log": {
+    "prefix": "log",
+    "body": ["console.log(`🚨 ${JSON.stringify($1, null, 2)}`);"]
+  },
+  "🌈sleep": {
+    "prefix": "sleep",
+    "body": [
+      "await new Promise((resolve) => {",
+      "  setTimeout(resolve, 1000);",
+      "});"
+    ]
+  },
+  "🌈component:client": {
+    "prefix": "component:client",
+    "body": [
+      "\"use client\";",
+      "",
+      "import { type FC } from \"react\";",
+      "",
+      "type Props = unknown;",
+      "",
+      "export const $TM_FILENAME_BASE: FC<Props> = () => {",
+      "  return null;",
+      "};",
+      ""
+    ]
+  },
+  "🌈component:server": {
+    "prefix": "component:server",
+    "body": [
+      "import { type FC } from \"react\";",
+      "import \"server-only\";",
+      "",
+      "type Props = unknown;",
+      "",
+      "export const $TM_FILENAME_BASE: FC<Props> = () => {",
+      "  return null;",
+      "};",
+      ""
+    ]
+  },
+  "🌈page": {
+    "prefix": "page",
+    "body": [
+      "import { type Metadata } from \"next\";",
+      "import { type FC } from \"react\";",
+      "import \"server-only\";",
+      "",
+      "export const generateMetadata = async ({",
+      "  params,",
+      "}: PageProps<\"$1\">): Promise<Metadata> => {",
+      "  const { lang: x } = await params;",
+      "  const lang = toLang(x);",
+      "",
+      "  return {",
+      "    title: dict[lang].title,",
+      "  };",
+      "};",
+      "",
+      "const Page: FC<PageProps<\"$1\">> = async ({ params }) => {",
+      "  const { lang: x } = await params;",
+      "  const lang = toLang(x);",
+      "",
+      "  return <>{dict[lang].title}</>;",
+      "};",
+      "",
+      "export default Page;",
+      "",
+      "const dict = {",
+      "  en: {",
+      "    title: \"Page title\",",
+      "  },",
+      "  ja: {",
+      "    title: \"ページタイトル\",",
+      "  },",
+      "} as const satisfies Dict;",
+      ""
+    ]
+  }
+}

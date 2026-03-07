@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+afplay $HOME/dotfiles/claude/hooks/Notification.mp3
+
+curl $SLACK_WEBHOOK_URL \
+-X POST \
+-d @- <<EOS
+{
+  "channel": "#ai",
+  "icon_emoji": "robot_face",
+  "username": "Claude Code",
+  "text": "🔔Notification（$(basename $PWD)）"
+}
+EOS
