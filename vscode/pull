@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+
+HERE=$(realpath $(dirname $0))
+VSC="$HOME/Library/Application Support/Code/User"
+
+rm -fr $HERE/snippets && cp -r "$VSC/snippets" $HERE/snippets
+cp "$VSC/keybindings.json" $HERE/keybindings.json
+cp "$VSC/settings.json" $HERE/settings.json
+
+cp $HOME/.vscode/argv.json $HERE/argv.json
+
+code --list-extensions > $HERE/extensions.txt
