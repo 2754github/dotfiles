@@ -1,0 +1,14 @@
+{
+  "🌈log": {
+    "prefix": "log",
+    "body": ["console.log(`🚨 ${JSON.stringify($1, null, 2)}`);"]
+  },
+  "🌈sleep": {
+    "prefix": "sleep",
+    "body": [
+      "await new Promise((resolve) => {",
+      "  setTimeout(resolve, 1000);",
+      "});"
+    ]
+  }
+}

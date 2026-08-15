@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+
+$HOME/dotfiles/home/.config/git/hooks/scripts/no-fixup-commits
+$HOME/dotfiles/home/.config/git/hooks/scripts/branch-protection
