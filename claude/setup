@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ ! $(command -v claude) ]]; then
+  # https://claude.com/ja/product/claude-code
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+
+# https://github.com/anthropics/claude-plugins-official/tree/main/plugins
+plugins=(
+  claude-security
+  code-review
+  code-simplifier
+  feature-dev
+  pr-review-toolkit
+  security-guidance
+)
+printf '%s\n' ${plugins[@]} | while read plugin; do
+  claude plugin install $plugin
+done

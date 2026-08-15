@@ -1,0 +1,33 @@
+# https://github.com/Homebrew/brew/blob/master/docs/Brew-Bundle-and-Brewfile.md#advanced-brewfiles
+
+cask_args appdir: "/Applications"
+
+# https://starship.rs/guide/#prerequisites
+# https://github.com/ryanoasis/nerd-fonts#option-2-homebrew-fonts
+cask "font-hack-nerd-font"
+
+# brew leaves
+brew "bat"
+brew "container"
+brew "duckdb"
+brew "eza"
+brew "fd"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "git-delta"
+brew "jq"
+brew "mise"
+brew "ripgrep"
+brew "starship"
+brew "zsh-autocomplete"
+
+# brew list --casks -1
+cask "appcleaner"
+cask "bluesnooze"
+cask "google-chrome"
+cask "google-drive"
+cask "tableplus"
+cask "visual-studio-code"
+
+# Klack

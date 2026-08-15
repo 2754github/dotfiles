@@ -1,0 +1,51 @@
+#!/bin/bash
+set -euo pipefail
+
+# Common ----------------------------------------------------------------------
+repo=$(basename $PWD)
+branch=$(git branch --show-current)
+
+echo "📂$repo 🪾 $branch"
+
+# Claude Code -----------------------------------------------------------------
+if [[ -t 0 ]]; then
+  input='{
+    "model": { "display_name": "Test" },
+    "context_window": { "used_percentage": 10 },
+    "rate_limits": {
+      "five_hour": { "used_percentage": 20 },
+      "seven_day": { "used_percentage": 30 }
+    }
+  }'
+else
+  input=$(cat)
+fi
+
+model=$(echo "$input" | jq -r '.model.display_name')
+context_window=$(echo "$input" | jq -r '.context_window.used_percentage // 0 | floor')
+five_hour=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // 0 | floor')
+seven_day=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // 0 | floor')
+
+echo "🤖$model 📊ctx $context_window% | 5h $five_hour% | 7d $seven_day%"
+
+# OUTDATED --------------------------------------------------------------------
+brew_formulae_outdated=$(
+  brew info --installed --json=v2 | jq -r '
+    .formulae
+    | map(select((.outdated) and (.installed | any(.installed_on_request))) | .name)
+    | join(" ")
+  '
+)
+
+brew_casks_outdated=$(
+  brew outdated --casks -g --json=v2 | jq -r '
+    .casks
+    | map(select((.name | IN("google-chrome", "google-drive", "visual-studio-code") | not)) | .name)
+    | join(" ")
+  '
+)
+
+brew_outdated="$brew_formulae_outdated $brew_casks_outdated"
+if [[ $brew_outdated == *[!\ ]* ]]; then
+  echo "⚠️brew upgrade $brew_outdated"
+fi
