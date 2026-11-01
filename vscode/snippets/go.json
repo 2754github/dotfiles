@@ -1,0 +1,6 @@
+{
+  "🌈log": {
+    "prefix": "log",
+    "body": ["fmt.Printf(\"🚨 %+v\\n\", $1)"]
+  }
+}

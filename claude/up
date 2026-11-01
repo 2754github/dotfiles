@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ ! $(command -v claude) ]]; then
+  # https://claude.com/ja/product/claude-code
+  curl -fsSL https://claude.ai/install.sh | bash
+else
+  claude update
+fi
+
+# https://claude.com/ja/marketplace/plugins
+# https://github.com/anthropics/claude-plugins-official/tree/main/plugins
+plugins=(
+  claude-security@anthropic-plugin-directory
+  code-review-anthropics@anthropic-plugin-directory
+  code-simplifier@anthropic-plugin-directory
+  feature-dev@anthropic-plugin-directory
+  pr-review-toolkit@anthropic-plugin-directory
+  security-guidance@anthropic-plugin-directory
+)
+for plugin in ${plugins[@]}; do
+  claude plugin install $plugin
+  claude plugin update $plugin
+done

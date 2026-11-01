@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "cleanupPeriodDays": 35,
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "1",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "false",
+    "CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL": "1",
+    "CLAUDE_CODE_NO_FLICKER": "1",
+    "DISABLE_AUTOUPDATER": "1",
+    "DISABLE_AUTO_COMPACT": "1",
+    "DISABLE_MICROCOMPACT": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "permissions": {
+    "allow": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Read(**/.env*)"
+    ],
+    "defaultMode": "auto",
+    "disableBypassPermissionsMode": "disable"
+  },
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/dotfiles/claude/statusLine"
+  },
+  "enabledPlugins": {
+    "claude-security@anthropic-plugin-directory": true,
+    "code-review-anthropics@anthropic-plugin-directory": true,
+    "code-simplifier@anthropic-plugin-directory": true,
+    "feature-dev@anthropic-plugin-directory": true,
+    "pr-review-toolkit@anthropic-plugin-directory": true,
+    "security-guidance@anthropic-plugin-directory": true
+  },
+  "language": "japanese",
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "allowUnsandboxedCommands": false,
+    "network": {
+      "allowedDomains": [
+        "api.github.com",
+        "github.com"
+      ],
+      "strictAllowlist": true,
+      "allowLocalBinding": true
+    },
+    "excludedCommands": [
+      "gh *",
+      "git fetch *",
+      "git pull *",
+      "git push *"
+    ]
+  },
+  "spinnerTipsEnabled": false,
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "showThinkingSummaries": true,
+  "theme": "light",
+  "autoScrollEnabled": false,
+  "terminalProgressBarEnabled": false,
+  "skipAutoPermissionPrompt": true
+}
