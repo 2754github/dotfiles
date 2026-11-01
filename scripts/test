@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
+container build -t dotfiles:latest $(realpath $(dirname $0))
+
+container run -it --rm -v $(realpath $(dirname $(dirname $0))):/home/tester/dotfiles dotfiles:latest
